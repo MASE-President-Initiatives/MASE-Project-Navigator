@@ -273,12 +273,15 @@
       overflow-wrap: anywhere;
     }
 
-    .project-meta {
-      margin-top: auto;
-      padding-top: 10px;
-      color: #52627a;
-      font-size: 12px;
-    }
+    <div class="project-meta">
+  <strong>Phase 1 Due:</strong>
+  ${escapeHTML(dateLabel(project.phase1_due_date))}
+  <br>
+  <strong>Phase 2 Due:</strong>
+  ${escapeHTML(dateLabel(project.phase2_due_date))}
+  <br>
+  <strong>Checklist steps:</strong> ${steps.length}
+</div>
 
     .project-actions {
       display: flex;
@@ -797,11 +800,11 @@
 
       const { data, error } = await supabase
         .from("projects")
-        .select(
-          "id, title, subject, due_date, description, instructions, planner_steps, planner_file_path, planner_file_name, published"
-        )
-        .eq("published", true)
-        .order("due_date", { ascending: true, nullsFirst: false });
+       .select(
+  "id, title, subject, phase1_due_date, phase2_due_date, description, instructions, planner_steps, planner_file_path, planner_file_name, published"
+)
+.eq("published", true)
+.order("phase1_due_date", { ascending: true, nullsFirst: false });
 
       if (error) {
         $("projectGrid").innerHTML = `
