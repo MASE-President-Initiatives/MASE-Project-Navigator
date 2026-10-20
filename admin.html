@@ -349,17 +349,15 @@
                      placeholder="e.g. Social Studies">
             </div>
 
-            
-<div class="field">
-  <label for="phase1DueDate">Phase 1 Due Date</label>
-  <input id="phase1DueDate" type="date">
-</div>
+            <div class="field">
+              <label for="phase1DueDate">Phase 1 Due Date (optional)</label>
+              <input id="phase1DueDate" type="date">
+            </div>
 
-<div class="field">
-  <label for="phase2DueDate">Phase 2 Due Date</label>
-  <input id="phase2DueDate" type="date">
-</div>
-
+            <div class="field">
+              <label for="phase2DueDate">Phase 2 Due Date (optional)</label>
+              <input id="phase2DueDate" type="date">
+            </div>
 
             <div class="field">
               <label for="instructions">Submission instructions</label>
@@ -440,9 +438,7 @@
     import { createClient } from
       "https://esm.sh/@supabase/supabase-js@2";
 
-    // Use the same working project URL and public/publishable key
-    // as index.html. Never use a secret or service-role key here.
- const SUPABASE_URL = "https://fawbhtftewddsaysvvjj.supabase.co";
+    const SUPABASE_URL = "https://fawbhtftewddsaysvvjj.supabase.co";
     const SUPABASE_PUBLIC_KEY = "sb_publishable_MPQKB4vGtFSjqNaBXQD3ww_RmX-OqBj";
 
     const configured =
@@ -468,6 +464,55 @@
         '"': "&quot;",
         "'": "&#039;"
       })[character]);
+    }
+
+    // Format database dates without timezone shifts.
+    function formatDate(dateValue) {
+      if (!dateValue) return "";
+
+      const parts = String(dateValue).split("-").map(Number);
+
+      if (
+        parts.length !== 3 ||
+        parts.some(number => !Number.isFinite(number))
+      ) {
+        return "";
+      }
+
+      const [year, month, day] = parts;
+      const date = new Date(year, month - 1, day);
+
+      if (Number.isNaN(date.getTime())) return "";
+
+      return date.toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+        year: "numeric"
+      });
+    }
+
+    // Display two phase deadlines, one general due date, or nothing.
+    function deadlineMarkup(project) {
+      const phase1 = formatDate(project.phase1_due_date);
+      const phase2 = formatDate(project.phase2_due_date);
+
+      if (phase1 && phase2) {
+        return `
+          <br>
+          <strong>Phase 1 Due:</strong> ${escapeHTML(phase1)}
+          <br>
+          <strong>Phase 2 Due:</strong> ${escapeHTML(phase2)}
+        `;
+      }
+
+      if (phase1 || phase2) {
+        return `
+          <br>
+          <strong>Due Date:</strong> ${escapeHTML(phase1 || phase2)}
+        `;
+      }
+
+      return "";
     }
 
     function setMessage(id, message, type = "") {
@@ -525,7 +570,7 @@
       if (!supabase) {
         setMessage(
           "loginMessage",
-          "Replace the Supabase URL and key placeholders in admin.html first.",
+          "Check the Supabase URL and public key in admin.html.",
           "error"
         );
         return;
@@ -581,7 +626,11 @@
 
       if (error) {
         $("projectsList").innerHTML = "";
-        setMessage("listMessage", "Could not load projects: " + error.message, "error");
+        setMessage(
+          "listMessage",
+          "Could not load projects: " + error.message,
+          "error"
+        );
         return;
       }
 
@@ -610,13 +659,9 @@
           </h3>
 
           <div class="project-row-meta">
-            <strong>Subject:</strong> ${escapeHTML(project.subject || "Not specified")}
-            &nbsp;·&nbsp;
-           <strong>Phase 1 Due:</strong>
-${escapeHTML(project.phase1_due_date || "Not set")}
-<br>
-<strong>Phase 2 Due:</strong>
-${escapeHTML(project.phase2_due_date || "Not set")}
+            <strong>Subject:</strong>
+            ${escapeHTML(project.subject || "Not specified")}
+            ${deadlineMarkup(project)}
             <br>
             <strong>Planner PDF:</strong>
             ${escapeHTML(project.planner_file_name || "No file attached")}
@@ -646,7 +691,8 @@ ${escapeHTML(project.phase2_due_date || "Not set")}
       $("formHeading").textContent = "Add a New Project";
       $("saveButton").textContent = "Add Project";
       $("cancelEditButton").hidden = true;
-      $("attachedFileInfo").textContent = "Choose a PDF planner (maximum 20 MB).";
+      $("attachedFileInfo").textContent =
+        "Choose a PDF planner (maximum 20 MB).";
     }
 
     function startEditing(projectId) {
@@ -664,12 +710,16 @@ ${escapeHTML(project.phase2_due_date || "Not set")}
       $("title").value = project.title || "";
       $("subject").value = project.subject || "";
       $("phase1DueDate").value = project.phase1_due_date || "";
-$("phase2DueDate").value = project.phase2_due_date || "";
+      $("phase2DueDate").value = project.phase2_due_date || "";
       $("instructions").value = project.instructions || "";
       $("description").value = project.description || "";
-      $("steps").value = (
-        Array.isArray(project.planner_steps) ? project.planner_steps : []
-      ).join("\n");
+
+      $("steps").value = Array.isArray(project.planner_steps)
+        ? project.planner_steps.join("\n")
+        : typeof project.planner_steps === "string"
+          ? project.planner_steps
+          : "";
+
       $("published").checked = Boolean(project.published);
       $("plannerFile").value = "";
 
@@ -722,7 +772,11 @@ $("phase2DueDate").value = project.phase2_due_date || "";
       event.preventDefault();
 
       if (!supabase || !currentUser || !isAdmin) {
-        setMessage("formMessage", "You are not authorized to manage projects.", "error");
+        setMessage(
+          "formMessage",
+          "You are not authorized to manage projects.",
+          "error"
+        );
         return;
       }
 
@@ -743,7 +797,8 @@ $("phase2DueDate").value = project.phase2_due_date || "";
 
       if (selectedFile) {
         const isPdfByName = selectedFile.name.toLowerCase().endsWith(".pdf");
-        const isPdfByType = !selectedFile.type || selectedFile.type === "application/pdf";
+        const isPdfByType =
+          !selectedFile.type || selectedFile.type === "application/pdf";
 
         if (!isPdfByName || !isPdfByType) {
           setMessage("formMessage", "Please select a PDF file.", "error");
@@ -751,13 +806,21 @@ $("phase2DueDate").value = project.phase2_due_date || "";
         }
 
         if (selectedFile.size > 20 * 1024 * 1024) {
-          setMessage("formMessage", "The PDF must be 20 MB or smaller.", "error");
+          setMessage(
+            "formMessage",
+            "The PDF must be 20 MB or smaller.",
+            "error"
+          );
           return;
         }
       }
 
       if (!selectedFile && !existingProject?.planner_file_path) {
-        setMessage("formMessage", "Please attach a planner PDF before saving this project.", "error");
+        setMessage(
+          "formMessage",
+          "Please attach a planner PDF before saving this project.",
+          "error"
+        );
         return;
       }
 
@@ -773,14 +836,19 @@ $("phase2DueDate").value = project.phase2_due_date || "";
         const projectData = {
           title,
           subject,
-         phase1_due_date: $("phase1DueDate").value || null,
-phase2_due_date: $("phase2DueDate").value || null,
+
+          // Either date may be blank; blank values are saved as NULL.
+          phase1_due_date: $("phase1DueDate").value || null,
+          phase2_due_date: $("phase2DueDate").value || null,
+
           instructions: $("instructions").value.trim(),
           description,
           planner_steps: plannerSteps,
           published: $("published").checked,
+
           planner_file_path:
             newlyUploadedPath || existingProject?.planner_file_path || null,
+
           planner_file_name:
             selectedFile?.name || existingProject?.planner_file_name || null
         };
@@ -808,25 +876,38 @@ phase2_due_date: $("phase2DueDate").value || null,
             await removeStoredFile(newlyUploadedPath);
           }
 
-          setMessage("formMessage", "Could not save project: " + result.error.message, "error");
+          setMessage(
+            "formMessage",
+            "Could not save project: " + result.error.message,
+            "error"
+          );
           return;
         }
 
-        // Remove the old PDF only after the project record is saved.
+        // Delete the old PDF only after the project record is saved.
         if (
           newlyUploadedPath &&
           existingProject?.planner_file_path &&
           existingProject.planner_file_path !== newlyUploadedPath
         ) {
-          const cleanupError = await removeStoredFile(existingProject.planner_file_path);
+          const cleanupError =
+            await removeStoredFile(existingProject.planner_file_path);
 
           if (cleanupError) {
-            console.warn("The previous PDF could not be removed:", cleanupError.message);
+            console.warn(
+              "The previous PDF could not be removed:",
+              cleanupError.message
+            );
           }
         }
 
         resetForm();
-        setMessage("formMessage", "Project and planner PDF saved successfully.", "success");
+        setMessage(
+          "formMessage",
+          "Project and planner PDF saved successfully.",
+          "success"
+        );
+
         await loadProjects();
 
       } catch (error) {
@@ -834,7 +915,11 @@ phase2_due_date: $("phase2DueDate").value || null,
           await removeStoredFile(newlyUploadedPath);
         }
 
-        setMessage("formMessage", "Upload or save failed: " + (error.message || String(error)), "error");
+        setMessage(
+          "formMessage",
+          "Upload or save failed: " + (error.message || String(error)),
+          "error"
+        );
 
       } finally {
         $("saveButton").disabled = false;
@@ -852,7 +937,10 @@ phase2_due_date: $("phase2DueDate").value || null,
 
       if (!deleteButton || !isAdmin) return;
 
-      const project = projects.find(item => item.id === deleteButton.dataset.delete);
+      const project = projects.find(
+        item => item.id === deleteButton.dataset.delete
+      );
+
       if (!project) return;
 
       const confirmed = confirm(
@@ -867,7 +955,11 @@ phase2_due_date: $("phase2DueDate").value || null,
         .eq("id", project.id);
 
       if (deleteError) {
-        setMessage("listMessage", "Could not delete project: " + deleteError.message, "error");
+        setMessage(
+          "listMessage",
+          "Could not delete project: " + deleteError.message,
+          "error"
+        );
         return;
       }
 
@@ -886,29 +978,34 @@ phase2_due_date: $("phase2DueDate").value || null,
       if (editingProjectId === project.id) resetForm();
 
       await loadProjects();
-      setMessage("listMessage", "Project deleted." + cleanupMessage, cleanupMessage ? "" : "success");
+
+      setMessage(
+        "listMessage",
+        "Project deleted." + cleanupMessage,
+        cleanupMessage ? "" : "success"
+      );
     });
 
-  async function initialize() {
-  if (!supabase) {
-    setMessage(
-      "loginMessage",
-      "Check your Supabase URL and public key.",
-      "error"
-    );
-    return;
-  }
+    async function initialize() {
+      if (!supabase) {
+        setMessage(
+          "loginMessage",
+          "Check your Supabase URL and public key.",
+          "error"
+        );
+        return;
+      }
 
-  await supabase.auth.signOut();
+      await supabase.auth.signOut();
 
-  currentUser = null;
-  isAdmin = false;
-  projects = [];
+      currentUser = null;
+      isAdmin = false;
+      projects = [];
 
-  setAuthenticatedUI();
-}
+      setAuthenticatedUI();
+    }
 
-initialize();
+    initialize();
   </script>
 </body>
 </html>
