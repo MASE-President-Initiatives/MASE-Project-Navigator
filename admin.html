@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#10264d">
+  <title>Admin Dashboard | MASE Project Navigator</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+  <style>
+    :root {
+      --navy: #10264d;
+      --blue: #2463c5;
+      --pale: #f5f8ff;
+      --border: #dce5f2;
+      --text: #1d2b43;
+      --muted: #68778d;
+      --red: #b42318;
+      --green: #19734b;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      color: var(--text);
+      background: var(--pale);
+      font-family: "Inter", Arial, sans-serif;
+      line-height: 1.6;
+    }
+
+    button, input, textarea { font: inherit; }
+    button { cursor: pointer; }
+    [hidden] { display: none !important; }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      padding: 14px clamp(16px, 4vw, 50px);
+      color: white;
+      background: var(--navy);
+    }
+
+    .logo {
+      width: 98px;
+      height: 98px;
+      object-fit: contain;
+      flex: 0 0 98px;
+      border-radius: 15px;
+    }
+
+    .brand-title {
+      margin: 0;
+      font-size: clamp(17px, 2vw, 23px);
+      font-weight: 800;
+      line-height: 1.3;
+    }
+
+    .brand-subtitle {
+      margin: 5px 0 0;
+      color: #d5e4ff;
+      font-size: 12px;
+    }
+
+    .spacer { flex: 1; }
+
+    .top-link {
+      color: white;
+      text-decoration: none;
+      padding: 9px 12px;
+      border: 1px solid rgba(255,255,255,.35);
+      border-radius: 9px;
+      font-size: 12px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 35px 22px 60px;
+    }
+
+    h1, h2, h3 { color: var(--navy); }
+    h1 { margin: 0 0 8px; font-size: clamp(28px, 4vw, 38px); letter-spacing: -.7px; }
+    h2 { margin: 0 0 12px; font-size: 21px; }
+    h3 { margin: 0 0 8px; font-size: 16px; }
+
+    .muted { color: var(--muted); font-size: 13px; }
+
+    .card {
+      padding: 24px;
+      margin-top: 22px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: white;
+      box-shadow: 0 10px 30px rgba(16,38,77,.06);
+    }
+
+    .login-card { max-width: 510px; }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 15px;
+    }
+
+    .field label {
+      color: var(--navy);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .field input,
+    .field textarea {
+      width: 100%;
+      padding: 12px 13px;
+      border: 1px solid #ccd7e7;
+      border-radius: 9px;
+      color: var(--text);
+      background: white;
+    }
+
+    .field input[type="file"] {
+      padding: 10px;
+      background: #f9fbff;
+    }
+
+    .field textarea {
+      min-height: 105px;
+      resize: vertical;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0 16px;
+    }
+
+    .full { grid-column: 1 / -1; }
+
+    .check-row {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      margin: 9px 0 19px;
+      font-size: 13px;
+    }
+
+    .check-row input {
+      width: 17px;
+      height: 17px;
+      accent-color: var(--blue);
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      padding: 11px 16px;
+      border: 0;
+      border-radius: 9px;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .button-primary { color: white; background: var(--blue); }
+    .button-outline { color: var(--navy); background: white; border: 1px solid var(--border); }
+    .button-danger { color: var(--red); background: #fff7f6; border: 1px solid #f1c8c4; }
+    .button-small { padding: 8px 10px; font-size: 12px; }
+    .button:disabled { opacity: .6; cursor: not-allowed; }
+
+    .message {
+      margin-top: 12px;
+      font-size: 13px;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+
+    .message.error { color: var(--red); }
+    .message.success { color: var(--green); }
+
+    .notice {
+      margin: 18px 0;
+      padding: 14px 16px;
+      border-left: 4px solid var(--blue);
+      border-radius: 7px;
+      color: #334d75;
+      background: #edf4ff;
+      font-size: 13px;
+    }
+
+    .projects-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .project-row {
+      padding: 17px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: white;
+    }
+
+    .project-row-title {
+      margin: 0 0 5px;
+      color: var(--navy);
+      font-size: 16px;
+      overflow-wrap: anywhere;
+    }
+
+    .project-row-meta {
+      color: var(--muted);
+      font-size: 12px;
+      overflow-wrap: anywhere;
+    }
+
+    .project-row-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+
+    .status-pill {
+      display: inline-block;
+      padding: 3px 8px;
+      margin-left: 5px;
+      border-radius: 100px;
+      color: #214f99;
+      background: #edf4ff;
+      font-size: 10px;
+      font-weight: 800;
+    }
+
+    .status-draft { color: #8a5000; background: #fff1dc; }
+
+    @media (max-width: 650px) {
+      .topbar { gap: 10px; padding: 12px; }
+      .logo { width: 65px; height: 65px; flex-basis: 65px; }
+      .brand-title { font-size: 15px; }
+      .brand-subtitle { font-size: 10px; }
+      .top-link { padding: 8px; font-size: 10px; }
+      .container { padding: 26px 15px 45px; }
+      .card { padding: 18px; }
+      .form-grid { grid-template-columns: 1fr; }
+      .full { grid-column: auto; }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <img class="logo"
+         src="logo-navigator.png"
+         alt="MASE Project Navigator logo">
+
+    <div>
+      <p class="brand-title">Administrator Dashboard</p>
+      <p class="brand-subtitle">MASE Project Navigator</p>
+    </div>
+
+    <div class="spacer"></div>
+
+    <a class="top-link" href="mase-navigator.html">Student Website ↗</a>
+    <button class="button button-outline" id="signOutButton"
+            type="button" hidden>
+      Sign Out
+    </button>
+  </header>
+
+  <main class="container">
+    <div>
+      <h1>Manage School Projects</h1>
+      <p class="muted">
+        Create projects, set deadlines, attach planner PDFs, and manage checklists.
+      </p>
+    </div>
+
+    <section class="card login-card" id="loginPanel">
+      <h2>Administrator Sign In</h2>
+      <p class="muted">
+        This page is for authorized administrators only. Students do not sign in.
+      </p>
+
+      <form id="loginForm">
+        <div class="field">
+          <label for="adminEmail">Administrator email</label>
+          <input id="adminEmail"
+                 type="email"
+                 autocomplete="username"
+                 required
+                 placeholder="admin@example.com">
+        </div>
+
+        <div class="field">
+          <label for="adminPassword">Password</label>
+          <input id="adminPassword"
+                 type="password"
+                 autocomplete="current-password"
+                 required
+                 placeholder="Your password">
+        </div>
+
+        <button class="button button-primary" id="loginButton" type="submit">
+          Sign In
+        </button>
+
+        <div class="message" id="loginMessage" role="status"></div>
+      </form>
+    </section>
+
+    <section id="dashboard" hidden>
+      <div class="notice">
+        Only authorized accounts can manage projects. Planner PDFs are public
+        to anyone who has their URL, so upload only documents intended for students.
+      </div>
+
+      <section class="card">
+        <h2 id="formHeading">Add a New Project</h2>
+        <p class="muted">
+          Attach the PDF students should open from the student website.
+          You can also provide an optional checklist for the personal planner feature.
+        </p>
+
+        <form id="projectForm">
+          <div class="form-grid">
+            <div class="field">
+              <label for="title">Project title *</label>
+              <input id="title"
+                     required
+                     maxlength="180"
+                     placeholder="e.g. Nile River Research Project">
+            </div>
+
+            <div class="field">
+              <label for="subject">Subject *</label>
+              <input id="subject"
+                     required
+                     maxlength="100"
+                     placeholder="e.g. Social Studies">
+            </div>
+
+            <div class="field">
+              <label for="dueDate">Due date</label>
+              <input id="dueDate" type="date">
+            </div>
+
+            <div class="field">
+              <label for="instructions">Submission instructions</label>
+              <input id="instructions"
+                     maxlength="500"
+                     placeholder="e.g. Upload the PDF to Classera">
+            </div>
+
+            <div class="field full">
+              <label for="description">Project description *</label>
+              <textarea id="description"
+                        required
+                        maxlength="10000"
+                        placeholder="Explain the assignment requirements..."></textarea>
+            </div>
+
+            <div class="field full">
+              <label for="plannerFile">Attach Planner PDF *</label>
+              <input id="plannerFile"
+                     type="file"
+                     accept=".pdf,application/pdf">
+              <span class="muted" id="attachedFileInfo">
+                Choose a PDF planner (maximum 20 MB).
+              </span>
+            </div>
+
+            <div class="field full">
+              <label for="steps">Optional checklist — one step per line</label>
+              <textarea id="steps"
+                        placeholder="Understand the assignment&#10;Research reliable sources&#10;Create an outline&#10;Complete the first draft&#10;Review and revise&#10;Submit the final project"></textarea>
+              <span class="muted">
+                This checklist appears separately from the attached PDF.
+              </span>
+            </div>
+          </div>
+
+          <label class="check-row">
+            <input type="checkbox" id="published" checked>
+            Publish this project on the student website
+          </label>
+
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <button class="button button-primary"
+                    id="saveButton"
+                    type="submit">
+              Add Project
+            </button>
+
+            <button class="button button-outline"
+                    id="cancelEditButton"
+                    type="button"
+                    hidden>
+              Cancel Editing
+            </button>
+          </div>
+
+          <div class="message" id="formMessage" role="status"></div>
+        </form>
+      </section>
+
+      <section class="card">
+        <h2>Existing Projects</h2>
+        <p class="muted">
+          Edit project details or replace the attached PDF.
+          Draft projects are not visible to students.
+        </p>
+
+        <div id="projectsList" class="projects-list">
+          <p class="muted">Loading projects...</p>
+        </div>
+
+        <div class="message" id="listMessage" role="status"></div>
+      </section>
+    </section>
+  </main>
+
+  <script type="module">
+    import { createClient } from
+      "https://esm.sh/@supabase/supabase-js@2";
+
+    // Use the same working project URL and public/publishable key
+    // as index.html. Never use a secret or service-role key here.
+ const SUPABASE_URL = "https://fawbhtftewddsaysvvjj.supabase.co";
+    const SUPABASE_PUBLIC_KEY = "sb_publishable_MPQKB4vGtFSjqNaBXQD3ww_RmX-OqBj";
+
+    const configured =
+      !SUPABASE_URL.startsWith("PASTE_") &&
+      !SUPABASE_PUBLIC_KEY.startsWith("PASTE_");
+
+    const supabase = configured
+      ? createClient(SUPABASE_URL, SUPABASE_PUBLIC_KEY)
+      : null;
+
+    const $ = id => document.getElementById(id);
+
+    let currentUser = null;
+    let isAdmin = false;
+    let projects = [];
+    let editingProjectId = null;
+
+    function escapeHTML(value = "") {
+      return String(value).replace(/[&<>"']/g, character => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#039;"
+      })[character]);
+    }
+
+    function setMessage(id, message, type = "") {
+      const element = $(id);
+      element.textContent = message;
+      element.className = "message" + (type ? " " + type : "");
+    }
+
+    function setAuthenticatedUI() {
+      $("loginPanel").hidden = Boolean(currentUser && isAdmin);
+      $("dashboard").hidden = !(currentUser && isAdmin);
+      $("signOutButton").hidden = !(currentUser && isAdmin);
+    }
+
+    async function verifyAdmin(session) {
+      currentUser = session?.user || null;
+      isAdmin = false;
+
+      if (!currentUser) {
+        setAuthenticatedUI();
+        return false;
+      }
+
+      const { data: record, error } = await supabase
+        .from("admin_users")
+        .select("user_id")
+        .eq("user_id", currentUser.id)
+        .maybeSingle();
+
+      if (error || !record) {
+        setMessage(
+          "loginMessage",
+          error
+            ? "Could not verify administrator access: " + error.message
+            : "This account is not authorized. Add its user ID to the admin_users table first.",
+          "error"
+        );
+
+        await supabase.auth.signOut();
+        currentUser = null;
+        isAdmin = false;
+        setAuthenticatedUI();
+        return false;
+      }
+
+      isAdmin = true;
+      setAuthenticatedUI();
+      await loadProjects();
+      return true;
+    }
+
+    $("loginForm").addEventListener("submit", async event => {
+      event.preventDefault();
+
+      if (!supabase) {
+        setMessage(
+          "loginMessage",
+          "Replace the Supabase URL and key placeholders in admin.html first.",
+          "error"
+        );
+        return;
+      }
+
+      $("loginButton").disabled = true;
+      setMessage("loginMessage", "Signing in...");
+
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: $("adminEmail").value.trim(),
+        password: $("adminPassword").value
+      });
+
+      $("loginButton").disabled = false;
+
+      if (error) {
+        setMessage("loginMessage", error.message, "error");
+        return;
+      }
+
+      await verifyAdmin(data.session);
+    });
+
+    $("signOutButton").addEventListener("click", async () => {
+      if (!supabase) return;
+
+      const { error } = await supabase.auth.signOut();
+
+      if (error) {
+        setMessage("listMessage", error.message, "error");
+        return;
+      }
+
+      currentUser = null;
+      isAdmin = false;
+      projects = [];
+      resetForm();
+      setAuthenticatedUI();
+      $("projectsList").innerHTML = "";
+      setMessage("loginMessage", "You have signed out.");
+    });
+
+    async function loadProjects() {
+      if (!supabase || !isAdmin) return;
+
+      $("projectsList").innerHTML =
+        '<p class="muted">Loading projects...</p>';
+
+      const { data, error } = await supabase
+        .from("projects")
+        .select("*")
+        .order("created_at", { ascending: false });
+
+      if (error) {
+        $("projectsList").innerHTML = "";
+        setMessage("listMessage", "Could not load projects: " + error.message, "error");
+        return;
+      }
+
+      projects = data || [];
+      renderProjects();
+    }
+
+    function renderProjects() {
+      if (!projects.length) {
+        $("projectsList").innerHTML = `
+          <div class="project-row">
+            <h3>No projects yet</h3>
+            <p class="muted">Add your first project using the form above.</p>
+          </div>
+        `;
+        return;
+      }
+
+      $("projectsList").innerHTML = projects.map(project => `
+        <article class="project-row">
+          <h3 class="project-row-title">
+            ${escapeHTML(project.title)}
+            <span class="status-pill ${project.published ? "" : "status-draft"}">
+              ${project.published ? "Published" : "Draft"}
+            </span>
+          </h3>
+
+          <div class="project-row-meta">
+            <strong>Subject:</strong> ${escapeHTML(project.subject || "Not specified")}
+            &nbsp;·&nbsp;
+            <strong>Due:</strong> ${escapeHTML(project.due_date || "Not set")}
+            <br>
+            <strong>Planner PDF:</strong>
+            ${escapeHTML(project.planner_file_name || "No file attached")}
+          </div>
+
+          <div class="project-row-actions">
+            <button class="button button-outline button-small"
+                    type="button"
+                    data-edit="${escapeHTML(project.id)}">
+              Edit Project
+            </button>
+
+            <button class="button button-danger button-small"
+                    type="button"
+                    data-delete="${escapeHTML(project.id)}">
+              Delete Project
+            </button>
+          </div>
+        </article>
+      `).join("");
+    }
+
+    function resetForm() {
+      editingProjectId = null;
+      $("projectForm").reset();
+      $("published").checked = true;
+      $("formHeading").textContent = "Add a New Project";
+      $("saveButton").textContent = "Add Project";
+      $("cancelEditButton").hidden = true;
+      $("attachedFileInfo").textContent = "Choose a PDF planner (maximum 20 MB).";
+    }
+
+    function startEditing(projectId) {
+      if (!isAdmin) return;
+
+      const project = projects.find(item => item.id === projectId);
+      if (!project) return;
+
+      editingProjectId = projectId;
+
+      $("formHeading").textContent = "Edit Project";
+      $("saveButton").textContent = "Save Changes";
+      $("cancelEditButton").hidden = false;
+
+      $("title").value = project.title || "";
+      $("subject").value = project.subject || "";
+      $("dueDate").value = project.due_date || "";
+      $("instructions").value = project.instructions || "";
+      $("description").value = project.description || "";
+      $("steps").value = (
+        Array.isArray(project.planner_steps) ? project.planner_steps : []
+      ).join("\n");
+      $("published").checked = Boolean(project.published);
+      $("plannerFile").value = "";
+
+      $("attachedFileInfo").textContent = project.planner_file_name
+        ? "Currently attached: " + project.planner_file_name +
+          ". Choose a new PDF to replace it, or leave the picker empty to keep it."
+        : "No planner is attached. Choose a PDF before saving.";
+
+      setMessage("formMessage", "Editing: " + project.title);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    $("cancelEditButton").addEventListener("click", () => {
+      resetForm();
+      setMessage("formMessage", "");
+    });
+
+    function makeStoragePath(file) {
+      const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
+      const randomPart = Math.random().toString(36).slice(2, 10);
+      return `planners/${Date.now()}-${randomPart}-${safeName}`;
+    }
+
+    async function uploadPlanner(file) {
+      const path = makeStoragePath(file);
+
+      const { error } = await supabase.storage
+        .from("project-planners")
+        .upload(path, file, {
+          contentType: "application/pdf",
+          cacheControl: "3600",
+          upsert: false
+        });
+
+      if (error) throw error;
+      return path;
+    }
+
+    async function removeStoredFile(path) {
+      if (!path) return null;
+
+      const { error } = await supabase.storage
+        .from("project-planners")
+        .remove([path]);
+
+      return error || null;
+    }
+
+    $("projectForm").addEventListener("submit", async event => {
+      event.preventDefault();
+
+      if (!supabase || !currentUser || !isAdmin) {
+        setMessage("formMessage", "You are not authorized to manage projects.", "error");
+        return;
+      }
+
+      const title = $("title").value.trim();
+      const subject = $("subject").value.trim();
+      const description = $("description").value.trim();
+
+      const plannerSteps = $("steps").value
+        .split(/\r?\n/)
+        .map(step => step.trim())
+        .filter(Boolean);
+
+      const existingProject = editingProjectId
+        ? projects.find(project => project.id === editingProjectId)
+        : null;
+
+      const selectedFile = $("plannerFile").files?.[0] || null;
+
+      if (selectedFile) {
+        const isPdfByName = selectedFile.name.toLowerCase().endsWith(".pdf");
+        const isPdfByType = !selectedFile.type || selectedFile.type === "application/pdf";
+
+        if (!isPdfByName || !isPdfByType) {
+          setMessage("formMessage", "Please select a PDF file.", "error");
+          return;
+        }
+
+        if (selectedFile.size > 20 * 1024 * 1024) {
+          setMessage("formMessage", "The PDF must be 20 MB or smaller.", "error");
+          return;
+        }
+      }
+
+      if (!selectedFile && !existingProject?.planner_file_path) {
+        setMessage("formMessage", "Please attach a planner PDF before saving this project.", "error");
+        return;
+      }
+
+      $("saveButton").disabled = true;
+      let newlyUploadedPath = null;
+
+      try {
+        if (selectedFile) {
+          setMessage("formMessage", "Uploading planner PDF...");
+          newlyUploadedPath = await uploadPlanner(selectedFile);
+        }
+
+        const projectData = {
+          title,
+          subject,
+          due_date: $("dueDate").value || null,
+          instructions: $("instructions").value.trim(),
+          description,
+          planner_steps: plannerSteps,
+          published: $("published").checked,
+          planner_file_path:
+            newlyUploadedPath || existingProject?.planner_file_path || null,
+          planner_file_name:
+            selectedFile?.name || existingProject?.planner_file_name || null
+        };
+
+        setMessage("formMessage", "Saving project...");
+
+        let result;
+
+        if (editingProjectId) {
+          result = await supabase
+            .from("projects")
+            .update(projectData)
+            .eq("id", editingProjectId);
+        } else {
+          result = await supabase
+            .from("projects")
+            .insert({
+              ...projectData,
+              created_by: currentUser.id
+            });
+        }
+
+        if (result.error) {
+          if (newlyUploadedPath) {
+            await removeStoredFile(newlyUploadedPath);
+          }
+
+          setMessage("formMessage", "Could not save project: " + result.error.message, "error");
+          return;
+        }
+
+        // Remove the old PDF only after the project record is saved.
+        if (
+          newlyUploadedPath &&
+          existingProject?.planner_file_path &&
+          existingProject.planner_file_path !== newlyUploadedPath
+        ) {
+          const cleanupError = await removeStoredFile(existingProject.planner_file_path);
+
+          if (cleanupError) {
+            console.warn("The previous PDF could not be removed:", cleanupError.message);
+          }
+        }
+
+        resetForm();
+        setMessage("formMessage", "Project and planner PDF saved successfully.", "success");
+        await loadProjects();
+
+      } catch (error) {
+        if (newlyUploadedPath) {
+          await removeStoredFile(newlyUploadedPath);
+        }
+
+        setMessage("formMessage", "Upload or save failed: " + (error.message || String(error)), "error");
+
+      } finally {
+        $("saveButton").disabled = false;
+      }
+    });
+
+    $("projectsList").addEventListener("click", async event => {
+      const editButton = event.target.closest("[data-edit]");
+      const deleteButton = event.target.closest("[data-delete]");
+
+      if (editButton && isAdmin) {
+        startEditing(editButton.dataset.edit);
+        return;
+      }
+
+      if (!deleteButton || !isAdmin) return;
+
+      const project = projects.find(item => item.id === deleteButton.dataset.delete);
+      if (!project) return;
+
+      const confirmed = confirm(
+        `Delete "${project.title}"?\n\nThis also removes its uploaded PDF. This cannot be undone.`
+      );
+
+      if (!confirmed) return;
+
+      const { error: deleteError } = await supabase
+        .from("projects")
+        .delete()
+        .eq("id", project.id);
+
+      if (deleteError) {
+        setMessage("listMessage", "Could not delete project: " + deleteError.message, "error");
+        return;
+      }
+
+      let cleanupMessage = "";
+
+      if (project.planner_file_path) {
+        const cleanupError = await removeStoredFile(project.planner_file_path);
+
+        if (cleanupError) {
+          cleanupMessage =
+            " The project was deleted, but the PDF could not be removed from storage: " +
+            cleanupError.message;
+        }
+      }
+
+      if (editingProjectId === project.id) resetForm();
+
+      await loadProjects();
+      setMessage("listMessage", "Project deleted." + cleanupMessage, cleanupMessage ? "" : "success");
+    });
+
+  async function initialize() {
+  if (!supabase) {
+    setMessage(
+      "loginMessage",
+      "Check your Supabase URL and public key.",
+      "error"
+    );
+    return;
+  }
+
+  await supabase.auth.signOut();
+
+  currentUser = null;
+  isAdmin = false;
+  projects = [];
+
+  setAuthenticatedUI();
+}
+
+initialize();
+  </script>
+</body>
+</html>
