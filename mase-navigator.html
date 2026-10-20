@@ -744,11 +744,17 @@
               ${escapeHTML(project.description || "No description provided.")}
             </p>
 
-            <div class="project-meta">
-              <strong>Due:</strong> ${escapeHTML(dateLabel(project.due_date))}
-              <br>
-              <strong>Checklist steps:</strong> ${steps.length}
-            </div>
+          
+<div class="project-meta">
+  <strong>Phase 1 Due:</strong>
+  ${escapeHTML(dateLabel(project.phase1_due_date))}
+  <br>
+  <strong>Phase 2 Due:</strong>
+  ${escapeHTML(dateLabel(project.phase2_due_date))}
+  <br>
+  <strong>Checklist steps:</strong> ${steps.length}
+</div>
+
 
             ${plannerUrl ? `
               <div class="attachment-label">
