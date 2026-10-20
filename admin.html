@@ -349,10 +349,17 @@
                      placeholder="e.g. Social Studies">
             </div>
 
-            <div class="field">
-              <label for="dueDate">Due date</label>
-              <input id="dueDate" type="date">
-            </div>
+            
+<div class="field">
+  <label for="phase1DueDate">Phase 1 Due Date</label>
+  <input id="phase1DueDate" type="date">
+</div>
+
+<div class="field">
+  <label for="phase2DueDate">Phase 2 Due Date</label>
+  <input id="phase2DueDate" type="date">
+</div>
+
 
             <div class="field">
               <label for="instructions">Submission instructions</label>
@@ -605,7 +612,11 @@
           <div class="project-row-meta">
             <strong>Subject:</strong> ${escapeHTML(project.subject || "Not specified")}
             &nbsp;·&nbsp;
-            <strong>Due:</strong> ${escapeHTML(project.due_date || "Not set")}
+           <strong>Phase 1 Due:</strong>
+${escapeHTML(project.phase1_due_date || "Not set")}
+<br>
+<strong>Phase 2 Due:</strong>
+${escapeHTML(project.phase2_due_date || "Not set")}
             <br>
             <strong>Planner PDF:</strong>
             ${escapeHTML(project.planner_file_name || "No file attached")}
@@ -652,7 +663,8 @@
 
       $("title").value = project.title || "";
       $("subject").value = project.subject || "";
-      $("dueDate").value = project.due_date || "";
+      $("phase1DueDate").value = project.phase1_due_date || "";
+$("phase2DueDate").value = project.phase2_due_date || "";
       $("instructions").value = project.instructions || "";
       $("description").value = project.description || "";
       $("steps").value = (
@@ -761,7 +773,8 @@
         const projectData = {
           title,
           subject,
-          due_date: $("dueDate").value || null,
+         phase1_due_date: $("phase1DueDate").value || null,
+phase2_due_date: $("phase2DueDate").value || null,
           instructions: $("instructions").value.trim(),
           description,
           planner_steps: plannerSteps,
