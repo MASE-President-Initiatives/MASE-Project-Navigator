@@ -1,220 +1,257 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#10264a">
+  <meta name="theme-color" content="#10264d">
   <title>MASE Project Navigator</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --navy: #10264a;
-      --navy-dark: #09172e;
-      --blue: #2463b5;
-      --blue-hover: #194d91;
-      --blue-light: #eaf2ff;
-      --background: #f4f7fc;
-      --white: #ffffff;
-      --text: #192943;
-      --muted: #6b7890;
-      --border: #dce4f0;
-      --green: #16845b;
-      --red: #c53b46;
-      --shadow: 0 8px 28px rgba(16, 38, 74, 0.08);
+      --navy: #10264d;
+      --blue: #2463c5;
+      --light-blue: #eaf2ff;
+      --pale: #f5f8ff;
+      --text: #1d2b43;
+      --muted: #68778d;
+      --border: #dce5f2;
+      --green: #19734b;
+      --red: #b42318;
+      --shadow: 0 12px 35px rgba(16, 38, 77, .09);
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
-    html {
-      scroll-behavior: smooth;
-    }
+    html { scroll-behavior: smooth; }
 
     body {
       margin: 0;
-      background: var(--background);
       color: var(--text);
-      font-family: Arial, Helvetica, sans-serif;
+      background: #f6f8fc;
+      font-family: "Inter", Arial, sans-serif;
       line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
-    button,
-    input,
-    textarea {
-      font: inherit;
-    }
+    button, input, textarea { font: inherit; }
+    button { cursor: pointer; }
+    [hidden] { display: none !important; }
 
-    button,
-    a {
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    button {
-      cursor: pointer;
-    }
-
-    a {
-      color: inherit;
+    h1, h2, h3, .brand-name, .button {
+      font-family: "Manrope", "Inter", Arial, sans-serif;
     }
 
     .navbar {
-      background: var(--navy);
-      color: var(--white);
-      padding: 17px 6%;
+      min-height: 128px;
+      padding: 12px clamp(16px, 4vw, 60px);
       display: flex;
       align-items: center;
-      justify-content: space-between;
       gap: 20px;
-      flex-wrap: wrap;
+      color: white;
+      background: var(--navy);
     }
 
     .brand {
       display: flex;
       align-items: center;
-      gap: 13px;
-      font-size: 19px;
+      gap: 22px;
+      min-width: 0;
+    }
+
+    .logo {
+      width: 108px;
+      height: 108px;
+      flex: 0 0 108px;
+      object-fit: contain;
+      border-radius: 16px;
+    }
+
+    .brand-name {
+      margin: 0;
+      font-size: clamp(18px, 2.2vw, 27px);
       font-weight: 800;
-      letter-spacing: 0.2px;
+      line-height: 1.3;
+      letter-spacing: -.6px;
     }
 
-    .brand-mark {
-      width: 43px;
-      height: 43px;
-      display: grid;
-      place-items: center;
-      border-radius: 12px;
-      background: var(--white);
-      color: var(--navy);
-      font-size: 15px;
-      font-weight: 900;
-    }
-
-    .nav-label {
-      color: #d3e2ff;
+    .brand-subtitle {
+      margin: 6px 0 0;
+      color: #d5e4ff;
       font-size: 13px;
-      font-weight: 600;
     }
 
-    .hero {
-      padding: 56px 6% 43px;
-      background: linear-gradient(125deg, var(--navy-dark), #194b89);
+    .nav-spacer { flex: 1; }
+
+    .nav-link {
       color: white;
+      text-decoration: none;
+      padding: 10px 14px;
+      border: 1px solid rgba(255,255,255,.35);
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .nav-link:hover { background: rgba(255,255,255,.1); }
+
+    .hero-banner {
+      position: relative;
+      display: flex;
+      align-items: center;
+      min-height: 300px;
+      height: clamp(300px, 36vw, 445px);
+      overflow: hidden;
+      color: white;
+      background: #173d79;
+    }
+
+    .banner-image {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .banner-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        90deg,
+        rgba(8,25,54,.90) 0%,
+        rgba(12,40,83,.70) 48%,
+        rgba(12,40,83,.20) 100%
+      );
     }
 
     .hero-content {
-      max-width: 1100px;
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 1200px;
+      padding: 40px 26px;
       margin: 0 auto;
     }
 
     .eyebrow {
-      text-transform: uppercase;
+      color: #cfe0ff;
       letter-spacing: 2px;
+      text-transform: uppercase;
       font-size: 12px;
       font-weight: 800;
-      color: #a9ccff;
-      margin-bottom: 12px;
     }
 
-    .hero h1 {
-      font-size: clamp(30px, 5vw, 47px);
-      line-height: 1.15;
-      margin: 0 0 15px;
-      letter-spacing: -1px;
+    .hero-content h1 {
+      max-width: 760px;
+      margin: 12px 0 18px;
+      font-size: clamp(35px, 5vw, 59px);
+      line-height: 1.1;
+      letter-spacing: -1.8px;
     }
 
-    .hero p {
-      max-width: 680px;
+    .hero-content p {
+      max-width: 640px;
       margin: 0;
-      color: #d9e6fa;
-      font-size: 16px;
+      color: #e2ecff;
+      font-size: 15px;
     }
 
-    .main {
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      padding: 11px 16px;
+      border: 0;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 800;
+      text-decoration: none;
+      transition: transform .15s, opacity .15s;
+      line-height: 1.45;
+    }
+
+    .button:hover { transform: translateY(-1px); }
+    .button:disabled { opacity: .6; cursor: not-allowed; transform: none; }
+    .button-primary { color: white; background: var(--blue); }
+    .button-primary:hover { background: #1d52a8; }
+    .button-outline { color: var(--navy); background: white; border: 1px solid var(--border); }
+    .button-white { color: var(--navy); background: white; }
+    .button-small { padding: 8px 11px; font-size: 12px; }
+
+    .container {
       max-width: 1200px;
-      padding: 34px 24px 60px;
+      padding: 0 24px;
       margin: 0 auto;
     }
 
+    .section { padding: 44px 0; }
+
     .section-heading {
       display: flex;
+      flex-wrap: wrap;
       align-items: end;
       justify-content: space-between;
-      gap: 16px;
-      flex-wrap: wrap;
-      margin-bottom: 20px;
+      gap: 18px;
+      margin-bottom: 24px;
     }
 
     .section-heading h2 {
+      margin: 0;
       color: var(--navy);
-      font-size: 25px;
-      margin: 0 0 4px;
+      font-size: 28px;
+      letter-spacing: -.6px;
     }
 
     .section-heading p {
+      margin: 5px 0 0;
       color: var(--muted);
-      margin: 0;
       font-size: 14px;
     }
 
-    .project-count {
-      background: var(--blue-light);
-      color: var(--blue);
-      border-radius: 20px;
-      padding: 6px 12px;
-      font-weight: 700;
-      font-size: 12px;
-      white-space: nowrap;
-    }
-
-    .search-wrap {
-      position: relative;
-      margin-bottom: 26px;
-    }
-
-    .search-wrap input {
-      width: 100%;
-      border: 1px solid var(--border);
-      border-radius: 13px;
-      background: var(--white);
-      padding: 15px 17px 15px 46px;
+    .search-box {
+      width: min(100%, 390px);
+      padding: 12px 14px;
+      border: 1px solid #ccd7e7;
+      border-radius: 10px;
+      background: white;
       color: var(--text);
       outline: none;
-      box-shadow: 0 3px 12px rgba(16, 38, 74, 0.03);
     }
 
-    .search-wrap input:focus,
-    .notes-input:focus {
+    .search-box:focus,
+    .planner-notes:focus {
       border-color: var(--blue);
-      box-shadow: 0 0 0 3px rgba(36, 99, 181, 0.12);
-    }
-
-    .search-icon {
-      position: absolute;
-      left: 16px;
-      top: 12px;
-      font-size: 20px;
-      color: var(--muted);
-      pointer-events: none;
+      box-shadow: 0 0 0 3px rgba(36,99,197,.12);
     }
 
     .project-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 21px;
+      gap: 20px;
+    }
+
+    .card {
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: white;
+      box-shadow: var(--shadow);
     }
 
     .project-card {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 17px;
-      padding: 23px;
       display: flex;
       flex-direction: column;
-      min-width: 0;
-      box-shadow: var(--shadow);
-      transition: transform 0.18s ease, box-shadow 0.18s ease,
-                  border-color 0.18s ease;
+      min-height: 310px;
+      padding: 22px;
+      transition: transform .18s, box-shadow .18s, border-color .18s;
       cursor: pointer;
       outline: none;
     }
@@ -222,54 +259,54 @@
     .project-card:hover,
     .project-card:focus-visible {
       transform: translateY(-3px);
-      border-color: #a9c8f4;
-      box-shadow: 0 13px 32px rgba(16, 38, 74, 0.12);
+      border-color: #b8cceb;
+      box-shadow: 0 17px 40px rgba(16,38,77,.13);
     }
 
     .project-subject {
-      display: inline-block;
+      display: inline-flex;
       align-self: flex-start;
-      background: var(--blue-light);
-      color: var(--blue);
-      border-radius: 7px;
-      padding: 5px 9px;
-      margin-bottom: 12px;
+      max-width: 100%;
+      margin-bottom: 14px;
+      padding: 6px 10px;
+      border-radius: 100px;
+      color: #214f99;
+      background: var(--light-blue);
       font-size: 11px;
       font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .project-card h3 {
-      color: var(--navy);
-      font-size: 20px;
-      line-height: 1.35;
-      margin: 0 0 15px;
       overflow-wrap: anywhere;
     }
 
-    .project-meta {
+    .project-card h3 {
+      margin: 0 0 10px;
+      color: var(--navy);
+      font-size: 19px;
+      font-weight: 800;
+      line-height: 1.4;
+      letter-spacing: -.35px;
+      overflow-wrap: anywhere;
+    }
+
+    .project-description {
+      margin: 0;
       color: var(--muted);
       font-size: 13px;
-      line-height: 1.8;
-      margin: 0 0 17px;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+
+    /* Deadline design: no calendar icons or emojis. */
+    .project-meta {
+      display: grid;
+      gap: 8px;
+      margin-top: 12px;
     }
 
     .deadline-row {
-      display: flex;
-      gap: 9px;
-      align-items: flex-start;
-      padding: 10px 11px;
+      padding: 10px 12px;
+      border: 1px solid #e5ebf4;
+      border-radius: 9px;
       background: #f7f9fd;
-      border: 1px solid #edf1f8;
-      border-radius: 10px;
-      margin-top: 8px;
-    }
-
-    .deadline-icon {
-      flex: 0 0 auto;
-      font-size: 16px;
-      line-height: 1.6;
     }
 
     .deadline-label {
@@ -281,364 +318,234 @@
 
     .deadline-date {
       display: block;
-      color: #53627a;
+      color: var(--muted);
       font-size: 13px;
       overflow-wrap: anywhere;
-    }
-
-    .card-hint {
-      margin: 12px 0 0;
-      color: #8490a4;
-      font-size: 11px;
     }
 
     .project-actions {
       display: flex;
       flex-wrap: wrap;
-      gap: 9px;
+      gap: 8px;
       margin-top: auto;
-      padding-top: 20px;
+      padding-top: 18px;
       position: relative;
       z-index: 1;
     }
 
-    .button {
-      display: inline-flex;
-      justify-content: center;
+    .project-actions a { text-decoration: none; }
+
+    .attachment-label {
+      display: flex;
       align-items: center;
       gap: 7px;
-      border: 1px solid transparent;
-      border-radius: 9px;
-      padding: 10px 13px;
-      font-size: 13px;
-      font-weight: 700;
-      text-decoration: none;
-      transition: background 0.15s ease, border-color 0.15s ease;
-      line-height: 1.4;
-    }
-
-    .button-primary {
-      background: var(--blue);
-      color: white;
-    }
-
-    .button-primary:hover {
-      background: var(--blue-hover);
-    }
-
-    .button-outline {
-      background: white;
-      border-color: var(--border);
-      color: var(--navy);
-    }
-
-    .button-outline:hover {
-      background: var(--blue-light);
-      border-color: #b9d0f1;
-    }
-
-    .button:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-
-    .empty-state,
-    .loading-state,
-    .error-state {
-      background: white;
-      border: 1px dashed var(--border);
-      border-radius: 15px;
-      text-align: center;
-      padding: 45px 20px;
-      color: var(--muted);
-      grid-column: 1 / -1;
-    }
-
-    .empty-state h3,
-    .error-state h3 {
-      margin: 0 0 8px;
-      color: var(--navy);
-    }
-
-    .status-message {
-      font-size: 13px;
-      color: var(--muted);
-      margin-top: 15px;
-    }
-
-    .footer {
-      padding: 25px;
-      text-align: center;
-      color: var(--muted);
+      margin-top: 12px;
+      color: var(--green);
       font-size: 12px;
-      border-top: 1px solid var(--border);
+      font-weight: 700;
+    }
+
+    .empty-state {
+      grid-column: 1 / -1;
+      padding: 44px 20px;
+      text-align: center;
+      border: 1px dashed #c5d2e5;
+      border-radius: 15px;
       background: white;
     }
 
-    /* Popup windows */
+    .empty-state h3 { margin: 0 0 7px; color: var(--navy); }
 
-    .modal-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      z-index: 1000;
-      background: rgba(6, 18, 39, 0.65);
-      padding: 20px;
-      overflow-y: auto;
-      align-items: flex-start;
-      justify-content: center;
-    }
+    .muted { color: var(--muted); font-size: 13px; }
 
-    .modal-overlay.show {
-      display: flex;
-    }
-
-    .modal {
-      background: white;
-      width: 100%;
-      max-width: 720px;
-      margin: auto;
-      border-radius: 19px;
-      padding: 27px;
-      box-shadow: 0 20px 65px rgba(0, 0, 0, 0.23);
-      animation: modalIn 0.18s ease-out;
-    }
-
-    @keyframes modalIn {
-      from {
-        opacity: 0;
-        transform: translateY(8px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .modal-top {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 15px;
-      margin-bottom: 19px;
-    }
-
-    .modal-top h2 {
-      color: var(--navy);
-      font-size: 25px;
-      line-height: 1.3;
-      margin: 0;
+    .message {
+      margin-top: 12px;
+      font-size: 13px;
+      white-space: pre-wrap;
       overflow-wrap: anywhere;
     }
 
-    .modal-top .project-subject {
-      margin-bottom: 9px;
+    .message.error { color: var(--red); }
+    .message.success { color: var(--green); }
+
+    /* Project details and checklist popup windows. */
+    .planner-overlay {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      inset: 0;
+      padding: 18px;
+      overflow-y: auto;
+      align-items: center;
+      justify-content: center;
+      background: rgba(9,23,47,.72);
+    }
+
+    .planner-overlay.show { display: flex; }
+
+    .planner-modal {
+      width: 100%;
+      max-width: 730px;
+      max-height: 92vh;
+      overflow-y: auto;
+      padding: 27px;
+      border-radius: 18px;
+      background: white;
+      box-shadow: 0 25px 80px rgba(0,0,0,.25);
+      margin: auto;
+    }
+
+    .planner-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .planner-modal h2 {
+      margin: 0 0 8px;
+      color: var(--navy);
+      font-size: 25px;
+      line-height: 1.3;
+      overflow-wrap: anywhere;
+    }
+
+    .planner-info {
+      color: var(--muted);
+      font-size: 13px;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+
+    .details-section {
+      margin-top: 23px;
+    }
+
+    .details-section h3 {
+      margin: 0 0 8px;
+      color: var(--navy);
+      font-size: 16px;
+    }
+
+    .details-description {
+      color: var(--muted);
+      font-size: 14px;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      margin: 0;
     }
 
     .close-button {
       flex: 0 0 auto;
-      width: 37px;
-      height: 37px;
-      border-radius: 10px;
-      border: 1px solid var(--border);
-      background: white;
+      padding: 8px 12px;
+      border: 0;
+      border-radius: 9px;
       color: var(--navy);
-      font-size: 19px;
+      background: #eef2f7;
+      font-weight: 800;
     }
 
-    .close-button:hover {
-      background: var(--blue-light);
-    }
-
-    .detail-section {
-      margin-top: 23px;
-    }
-
-    .detail-section h3 {
-      color: var(--navy);
-      font-size: 16px;
-      margin: 0 0 8px;
-    }
-
-    .project-description {
-      color: #46546b;
-      white-space: pre-wrap;
-      overflow-wrap: anywhere;
-      margin: 0;
-      font-size: 14px;
-    }
+    .close-button:hover { background: #e0e8f4; }
 
     .modal-actions {
       display: flex;
       flex-wrap: wrap;
       gap: 9px;
-      margin-top: 26px;
-      padding-top: 19px;
+      margin-top: 23px;
+      padding-top: 18px;
       border-top: 1px solid var(--border);
     }
 
-    /* Checklist */
-
-    .checklist-progress {
-      margin: 18px 0 22px;
-    }
-
-    .progress-top {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      color: var(--muted);
-      font-size: 12px;
-      margin-bottom: 7px;
-    }
-
     .progress-track {
-      width: 100%;
-      height: 8px;
-      background: #e9eef7;
-      border-radius: 10px;
+      height: 9px;
       overflow: hidden;
+      margin: 18px 0 7px;
+      border-radius: 100px;
+      background: #e7edf6;
     }
 
     .progress-fill {
       width: 0;
       height: 100%;
       background: var(--blue);
-      border-radius: 10px;
-      transition: width 0.2s ease;
+      transition: width .2s;
     }
 
-    .checklist-list {
-      display: flex;
-      flex-direction: column;
+    .planner-task-list {
+      display: grid;
       gap: 10px;
+      margin: 20px 0;
     }
 
-    .checklist-item {
+    .planner-task {
       display: flex;
       align-items: flex-start;
       gap: 11px;
-      border: 1px solid var(--border);
-      background: #fbfcff;
+      padding: 13px;
+      border: 1px solid #e5ebf4;
       border-radius: 10px;
-      padding: 12px;
-    }
-
-    .checklist-item input {
-      margin-top: 5px;
-      accent-color: var(--blue);
-      width: 17px;
-      height: 17px;
-      flex: 0 0 auto;
-    }
-
-    .checklist-item label {
-      flex: 1;
-      color: var(--text);
-      font-size: 14px;
-      cursor: pointer;
-      overflow-wrap: anywhere;
-    }
-
-    .checklist-item.done label {
-      color: #8490a4;
-      text-decoration: line-through;
-    }
-
-    .notes-section {
-      margin-top: 25px;
-    }
-
-    .notes-section label {
-      display: block;
-      color: var(--navy);
-      font-size: 14px;
-      font-weight: 800;
-      margin-bottom: 8px;
-    }
-
-    .notes-input {
-      width: 100%;
-      min-height: 110px;
-      resize: vertical;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 12px;
-      outline: none;
-      color: var(--text);
-      background: white;
-    }
-
-    .notes-status {
-      color: var(--muted);
-      font-size: 11px;
-      margin-top: 5px;
-    }
-
-    .checklist-empty {
       background: #f7f9fd;
-      border-radius: 10px;
-      padding: 16px;
-      color: var(--muted);
       font-size: 13px;
     }
 
-    [hidden] {
-      display: none !important;
+    .planner-task input {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      margin-top: 2px;
+      accent-color: var(--blue);
     }
+
+    .planner-task span { overflow-wrap: anywhere; }
+
+    .planner-task.done span {
+      color: var(--muted);
+      text-decoration: line-through;
+    }
+
+    .planner-notes {
+      width: 100%;
+      min-height: 120px;
+      padding: 13px;
+      border: 1px solid #ccd7e7;
+      border-radius: 10px;
+      resize: vertical;
+      outline: none;
+    }
+
+    .footer {
+      padding: 27px 20px;
+      text-align: center;
+      color: #d7e2f2;
+      background: #0c1e3d;
+      font-size: 12px;
+    }
+
+    .footer strong { color: white; }
+    .footer p { margin-bottom: 0; }
+    .footer a { color: #d7e2f2; }
 
     @media (max-width: 950px) {
-      .project-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
+      .project-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .logo { width: 90px; height: 90px; flex-basis: 90px; }
+      .navbar { min-height: 108px; }
     }
 
-    @media (max-width: 600px) {
-      .navbar {
-        padding: 13px 5%;
-      }
-
-      .brand {
-        font-size: 16px;
-      }
-
-      .nav-label {
-        display: none;
-      }
-
-      .hero {
-        padding: 40px 6% 35px;
-      }
-
-      .main {
-        padding: 26px 15px 42px;
-      }
-
-      .project-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .project-card {
-        padding: 19px;
-      }
-
-      .modal-overlay {
-        padding: 10px;
-      }
-
-      .modal {
-        padding: 20px;
-        border-radius: 15px;
-      }
-
-      .modal-top h2 {
-        font-size: 22px;
-      }
-
+    @media (max-width: 620px) {
+      .navbar { padding: 12px 15px; gap: 10px; }
+      .brand { gap: 12px; }
+      .logo { width: 68px; height: 68px; flex-basis: 68px; }
+      .brand-name { font-size: 16px; }
+      .brand-subtitle { font-size: 10px; }
+      .nav-link { padding: 8px 9px; font-size: 10px; }
+      .hero-content { padding: 30px 20px; }
+      .container { padding: 0 17px; }
+      .section { padding: 32px 0; }
+      .project-grid { grid-template-columns: 1fr; }
+      .planner-modal { padding: 20px; }
+      .section-heading h2 { font-size: 24px; }
       .project-actions .button,
-      .modal-actions .button {
-        flex: 1 1 auto;
-      }
+      .modal-actions .button { flex: 1 1 auto; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -646,224 +553,247 @@
       *::before,
       *::after {
         scroll-behavior: auto !important;
-        animation-duration: 0.01ms !important;
-        transition-duration: 0.01ms !important;
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
       }
     }
   </style>
 </head>
 
 <body>
-  <header class="navbar">
-    <div class="brand">
-      <div class="brand-mark">MASE</div>
-      <span>Project Navigator</span>
-    </div>
-    <div class="nav-label">Middle School · Project Hub</div>
+  <header>
+    <nav class="navbar">
+      <div class="brand">
+        <img class="logo"
+             src="logo-navigator.png"
+             alt="MASE Project Navigator logo">
+        <div>
+          <p class="brand-name">MASE Project Navigator</p>
+          <p class="brand-subtitle">Modern American School of Egypt</p>
+        </div>
+      </div>
+
+      <div class="nav-spacer"></div>
+      <a class="nav-link" href="#projects">View Projects</a>
+    </nav>
+
+    <section class="hero-banner" aria-label="MASE Project Navigator banner">
+      <img class="banner-image" src="banner.png" alt="">
+      <div class="banner-overlay"></div>
+
+      <div class="hero-content">
+        <div class="eyebrow">Plan. Organize. Achieve.</div>
+        <h1>Your school projects, all in one place.</h1>
+        <p>
+          All project due dates in one place with project planner.
+          Find assignments, view attached planners, and keep track of deadlines.
+        </p>
+
+        <div style="margin-top:24px">
+          <button class="button button-white"
+                  id="exploreButton"
+                  type="button">
+            Explore Projects ↓
+          </button>
+        </div>
+      </div>
+    </section>
   </header>
 
-  <section class="hero">
-    <div class="hero-content">
-      <div class="eyebrow">Stay organized. Stay ahead.</div>
-      <h1>Your Projects,<br>All in One Place.</h1>
-      <p>
-        Find your school projects, check both phase deadlines, open your
-        project planner, and keep track of your progress.
-      </p>
-    </div>
-  </section>
+  <main>
+    <section class="section" id="projects">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <h2>Explore Projects</h2>
+            <p>Open a project to read the details and view its attached planner.</p>
+          </div>
 
-  <main class="main">
-    <div class="section-heading">
-      <div>
-        <h2>School Projects</h2>
-        <p>Choose a project to view its complete details.</p>
+          <input class="search-box"
+                 id="projectSearch"
+                 type="search"
+                 placeholder="Search projects or subjects..."
+                 aria-label="Search projects">
+        </div>
+
+        <div class="project-grid" id="projectGrid" aria-live="polite">
+          <div class="empty-state">
+            <h3>Loading projects...</h3>
+            <p class="muted">Connecting to the project database.</p>
+          </div>
+        </div>
+
+        <div id="projectMessage" class="message" role="status"></div>
       </div>
-      <div class="project-count" id="projectCount">Loading projects...</div>
-    </div>
-
-    <div class="search-wrap">
-      <span class="search-icon" aria-hidden="true">⌕</span>
-      <input
-        id="searchInput"
-        type="search"
-        placeholder="Search by project title, subject, or description..."
-        aria-label="Search projects"
-        autocomplete="off"
-      >
-    </div>
-
-    <div class="project-grid" id="projectGrid" aria-live="polite">
-      <div class="loading-state">Loading your projects...</div>
-    </div>
-
-    <p class="status-message" id="pageStatus"></p>
+    </section>
   </main>
 
   <footer class="footer">
-    MASE Project Navigator · Stay organized and meet your deadlines.
+    <strong>MASE Project Navigator</strong>
+    <p>All project due dates in one place with project planner.</p>
   </footer>
 
   <!-- Project Details Popup -->
-  <div
-    class="modal-overlay"
-    id="detailsOverlay"
-    role="dialog"
-    aria-modal="true"
-    aria-labelledby="detailsTitle"
-    aria-hidden="true"
-  >
-    <div class="modal">
-      <div class="modal-top">
+  <div class="planner-overlay"
+       id="detailsOverlay"
+       role="dialog"
+       aria-modal="true"
+       aria-labelledby="detailsTitle"
+       aria-hidden="true">
+
+    <div class="planner-modal">
+      <div class="planner-top">
         <div>
           <span class="project-subject" id="detailsSubject">School Project</span>
           <h2 id="detailsTitle">Project Details</h2>
         </div>
-        <button
-          class="close-button"
-          id="closeDetails"
-          type="button"
-          aria-label="Close project details"
-        >×</button>
+        <button class="close-button" id="closeDetails" type="button"
+                aria-label="Close project details">✕</button>
       </div>
 
-      <div id="detailsDeadlines"></div>
+      <div id="detailsDeadlines" class="project-meta"></div>
 
-      <section class="detail-section">
+      <section class="details-section">
         <h3>Project Description</h3>
-        <p class="project-description" id="detailsDescription"></p>
+        <p class="details-description" id="detailsDescription"></p>
       </section>
 
-      <section class="detail-section" id="detailsInstructions" hidden>
+      <section class="details-section" id="detailsInstructions" hidden>
         <h3>Submission Instructions</h3>
-        <p class="project-description" id="detailsInstructionsText"></p>
+        <p class="details-description" id="detailsInstructionsText"></p>
       </section>
 
       <div class="modal-actions">
-        <a
-          class="button button-primary"
-          id="detailsPdfButton"
-          href="#"
-          target="_blank"
-          rel="noopener noreferrer"
-          hidden
-        >See Project Planner (PDF) ↗</a>
+        <a class="button button-primary"
+           id="detailsPdfButton"
+           href="#"
+           target="_blank"
+           rel="noopener noreferrer"
+           hidden>
+          See Project Planner (PDF) ↗
+        </a>
 
-        <button
-          class="button button-outline"
-          id="detailsChecklistButton"
-          type="button"
-          hidden
-        >My Checklist</button>
+        <button class="button button-outline"
+                id="detailsChecklistButton"
+                type="button"
+                hidden>
+          My Checklist
+        </button>
 
-        <button
-          class="button button-outline"
-          id="closeDetailsBottom"
-          type="button"
-        >Back to Projects</button>
+        <button class="button button-outline"
+                id="closeDetailsBottom"
+                type="button">
+          Back to Projects
+        </button>
       </div>
     </div>
   </div>
 
-  <!-- Personal Checklist Popup -->
-  <div
-    class="modal-overlay"
-    id="checklistOverlay"
-    role="dialog"
-    aria-modal="true"
-    aria-labelledby="checklistTitle"
-    aria-hidden="true"
-  >
-    <div class="modal">
-      <div class="modal-top">
+  <!-- Personal Checklist and Notes Popup -->
+  <div class="planner-overlay"
+       id="plannerOverlay"
+       role="dialog"
+       aria-modal="true"
+       aria-labelledby="plannerTitle"
+       aria-hidden="true">
+
+    <div class="planner-modal">
+      <div class="planner-top">
         <div>
-          <span class="project-subject" id="checklistSubject">My Progress</span>
-          <h2 id="checklistTitle">Project Checklist</h2>
+          <h2 id="plannerTitle">Project Checklist</h2>
+          <div class="planner-info" id="plannerDetails"></div>
+          <div id="plannerDeadlines" class="project-meta"></div>
         </div>
-        <button
-          class="close-button"
-          id="closeChecklist"
-          type="button"
-          aria-label="Close checklist"
-        >×</button>
+        <button class="close-button" id="closePlanner" type="button"
+                aria-label="Close checklist">✕</button>
       </div>
 
-      <div id="checklistDeadlines"></div>
+      <div class="progress-track"
+           role="progressbar"
+           aria-label="Checklist progress"
+           aria-valuemin="0"
+           aria-valuemax="100"
+           aria-valuenow="0"
+           id="progressBar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <p class="muted" id="progressLabel">0% completed</p>
 
-      <div class="checklist-progress">
-        <div class="progress-top">
-          <span>My progress</span>
-          <strong id="progressText">0% complete</strong>
-        </div>
-        <div
-          class="progress-track"
-          role="progressbar"
-          aria-label="Checklist progress"
-          aria-valuemin="0"
-          aria-valuemax="100"
-          aria-valuenow="0"
-          id="progressBar"
-        >
-          <div class="progress-fill" id="progressFill"></div>
-        </div>
+      <h3 style="color:var(--navy);font-size:16px">Your checklist</h3>
+      <div class="planner-task-list" id="plannerTasks"></div>
+
+      <div style="margin-top:20px">
+        <label for="plannerNotes"
+               style="display:block;margin-bottom:7px;font-size:13px;font-weight:700;color:var(--navy)">
+          My notes and reminders
+        </label>
+        <textarea id="plannerNotes"
+                  class="planner-notes"
+                  maxlength="15000"
+                  placeholder="Write your reminders, ideas, or questions here..."></textarea>
       </div>
 
-      <div class="checklist-list" id="checklistList"></div>
+      <p class="muted">
+        Your checklist and notes are saved in this browser on this device.
+        They are not uploaded to your school account.
+      </p>
 
-      <section class="notes-section">
-        <label for="projectNotes">My Notes</label>
-        <textarea
-          class="notes-input"
-          id="projectNotes"
-          placeholder="Write your reminders, ideas, or notes for this project..."
-        ></textarea>
-        <div class="notes-status" id="notesStatus">
-          Your notes are saved in this browser.
-        </div>
-      </section>
-
-      <div class="modal-actions">
-        <button
-          class="button button-outline"
-          id="closeChecklistBottom"
-          type="button"
-        >Done</button>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <button class="button button-primary" id="savePlanner" type="button">
+          Save My Checklist
+        </button>
+        <button class="button button-outline" id="closePlannerBottom" type="button">
+          Close
+        </button>
       </div>
+
+      <div class="message" id="plannerMessage" role="status"></div>
     </div>
   </div>
 
   <script type="module">
     import { createClient } from
-      "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+      "https://esm.sh/@supabase/supabase-js@2";
 
-    // Supabase public project configuration.
+    // Keep these values the same as the ones used by admin.html.
     const SUPABASE_URL = "https://fawbhtftewddsaysvvjj.supabase.co";
-    const SUPABASE_KEY = "sb_publishable_MPQKB4vGtFSjqNaBXQD3ww_RmX-OqBj";
+    const SUPABASE_PUBLIC_KEY =
+      "sb_publishable_MPQKB4vGtFSjqNaBXQD3ww_RmX-OqBj";
 
     const STORAGE_BUCKET = "project-planners";
 
-    let supabase = null;
+    const supabase = createClient(
+      SUPABASE_URL,
+      SUPABASE_PUBLIC_KEY
+    );
+
     let projects = [];
     let activeProject = null;
-    let previousFocus = null;
+    let completedSteps = [];
+    let lastFocusedElement = null;
     let notesSaveTimeout = null;
 
-    const $ = (id) => document.getElementById(id);
+    const $ = id => document.getElementById(id);
 
-    function escapeHTML(value) {
-      return String(value ?? "").replace(/[&<>"']/g, (character) => ({
+    function escapeHTML(value = "") {
+      return String(value).replace(/[&<>"']/g, character => ({
         "&": "&amp;",
         "<": "&lt;",
         ">": "&gt;",
         '"': "&quot;",
-        "'": "&#39;"
+        "'": "&#039;"
       })[character]);
+    }
+
+    function setMessage(id, message, type = "") {
+      const element = $(id);
+      element.textContent = message;
+      element.className = "message" + (type ? " " + type : "");
     }
 
     function dateLabel(value) {
       if (!value) return "Not set";
 
-      // Handle date-only values without shifting them between time zones.
       const match = String(value).match(/^(\d{4})-(\d{2})-(\d{2})$/);
 
       if (match) {
@@ -875,26 +805,60 @@
 
         return date.toLocaleDateString("en-US", {
           year: "numeric",
-          month: "long",
+          month: "short",
           day: "numeric"
         });
       }
 
       const date = new Date(value);
 
-      if (Number.isNaN(date.getTime())) {
-        return String(value);
-      }
+      if (Number.isNaN(date.getTime())) return String(value);
 
       return date.toLocaleDateString("en-US", {
         year: "numeric",
-        month: "long",
+        month: "short",
         day: "numeric"
       });
     }
 
+    function getProjectById(projectId) {
+      return projects.find(
+        project => String(project.id) === String(projectId)
+      );
+    }
+
+    function normalizeSteps(value) {
+      if (Array.isArray(value)) {
+        return value.map(step => {
+          if (typeof step === "string") return step;
+
+          if (step && typeof step === "object") {
+            return String(step.text ?? step.title ?? step.label ?? "");
+          }
+
+          return String(step ?? "");
+        }).filter(step => step.trim());
+      }
+
+      if (typeof value === "string" && value.trim()) {
+        try {
+          const parsed = JSON.parse(value);
+
+          if (Array.isArray(parsed)) {
+            return normalizeSteps(parsed);
+          }
+        } catch {
+          // A plain-text list is treated as one step per line.
+        }
+
+        return value.split(/\r?\n/).map(step => step.trim()).filter(Boolean);
+      }
+
+      return [];
+    }
+
     function getPlannerUrl(project) {
-      if (!project?.planner_file_path || !supabase) return "";
+      if (!project?.planner_file_path) return "";
 
       const { data } = supabase.storage
         .from(STORAGE_BUCKET)
@@ -903,91 +867,74 @@
       return data?.publicUrl || "";
     }
 
-    function normalizePlannerSteps(value) {
-      if (Array.isArray(value)) {
-        return value.map((step) => {
-          if (typeof step === "string") return step;
-          if (step && typeof step === "object") {
-            return String(step.text ?? step.title ?? step.label ?? "");
-          }
-          return String(step ?? "");
-        }).filter(Boolean);
-      }
-
-      if (typeof value === "string" && value.trim()) {
-        try {
-          const parsed = JSON.parse(value);
-
-          if (Array.isArray(parsed)) {
-            return normalizePlannerSteps(parsed);
-          }
-        } catch {
-          // Treat non-JSON text as one checklist item per line.
-        }
-
-        return value.split(/\r?\n/).map((step) => step.trim()).filter(Boolean);
-      }
-
-      return [];
-    }
-
-    function getChecklistKey(projectId) {
-      return `mase-navigator-checklist-${projectId}`;
-    }
-
-    function getNotesKey(projectId) {
-      return `mase-navigator-notes-${projectId}`;
-    }
-
-    function getCheckedItems(project) {
-      try {
-        const saved = localStorage.getItem(getChecklistKey(project.id));
-        return saved ? JSON.parse(saved) : {};
-      } catch {
-        return {};
-      }
-    }
-
-    function saveCheckedItems(project, checkedItems) {
-      try {
-        localStorage.setItem(
-          getChecklistKey(project.id),
-          JSON.stringify(checkedItems)
-        );
-      } catch {
-        $("pageStatus").textContent =
-          "Your browser could not save checklist changes.";
-      }
-    }
-
     function deadlineMarkup(phase, date) {
-      const isSet = Boolean(date);
-
       return `
         <div class="deadline-row">
-          <span class="deadline-icon" aria-hidden="true">📅</span>
-          <div>
-            <span class="deadline-label">Phase ${phase} Due Date</span>
-            <span class="deadline-date">${escapeHTML(dateLabel(date))}</span>
-          </div>
+          <span class="deadline-label">Phase ${phase} Due:</span>
+          <span class="deadline-date">${escapeHTML(dateLabel(date))}</span>
         </div>
       `;
     }
 
     function bothDeadlinesMarkup(project) {
       return `
-        <div class="project-meta">
-          ${deadlineMarkup(1, project.phase1_due_date)}
-          ${deadlineMarkup(2, project.phase2_due_date)}
-        </div>
+        ${deadlineMarkup(1, project.phase1_due_date)}
+        ${deadlineMarkup(2, project.phase2_due_date)}
       `;
     }
 
-    function renderProjects() {
-      const grid = $("projectGrid");
-      const query = $("searchInput").value.trim().toLowerCase();
+    function storageKey(projectId) {
+      return "mase-project-navigator-" + projectId;
+    }
 
-      const filtered = projects.filter((project) => {
+    function readProgress(projectId) {
+      try {
+        const saved = JSON.parse(
+          localStorage.getItem(storageKey(projectId)) || "{}"
+        );
+
+        return {
+          completedSteps: Array.isArray(saved.completedSteps)
+            ? saved.completedSteps.filter(Number.isInteger)
+            : [],
+          notes: typeof saved.notes === "string" ? saved.notes : ""
+        };
+      } catch {
+        return { completedSteps: [], notes: "" };
+      }
+    }
+
+    function saveProgress(showMessage = true) {
+      if (!activeProject) return;
+
+      try {
+        localStorage.setItem(storageKey(activeProject.id), JSON.stringify({
+          completedSteps,
+          notes: $("plannerNotes").value
+        }));
+
+        if (showMessage) {
+          setMessage(
+            "plannerMessage",
+            "Your checklist has been saved in this browser.",
+            "success"
+          );
+        }
+
+        updateProgress();
+      } catch {
+        setMessage(
+          "plannerMessage",
+          "The browser could not save your checklist. Check its storage settings.",
+          "error"
+        );
+      }
+    }
+
+    function renderProjects() {
+      const query = $("projectSearch").value.trim().toLowerCase();
+
+      const filtered = projects.filter(project => {
         const searchable = [
           project.title,
           project.subject,
@@ -999,30 +946,29 @@
         return searchable.includes(query);
       });
 
-      $("projectCount").textContent =
-        `${filtered.length} ${filtered.length === 1 ? "project" : "projects"}`;
-
       if (!filtered.length) {
-        grid.innerHTML = `
+        $("projectGrid").innerHTML = `
           <div class="empty-state">
-            <h3>${projects.length ? "No matching projects" : "No projects published yet"}</h3>
-            <p>${
-              projects.length
-                ? "Try a different search term."
-                : "Published projects will appear here when your administrator adds them."
-            }</p>
+            <h3>${projects.length ? "No matching projects" : "No projects found"}</h3>
+            <p class="muted">
+              ${
+                projects.length
+                  ? "Try another search."
+                  : "Try another search, or check back after your website administrator publishes a project."
+              }
+            </p>
           </div>
         `;
         return;
       }
 
-      grid.innerHTML = filtered.map((project) => {
+      $("projectGrid").innerHTML = filtered.map(project => {
+        const steps = normalizeSteps(project.planner_steps);
         const plannerUrl = getPlannerUrl(project);
-        const hasChecklist = normalizePlannerSteps(project.planner_steps).length > 0;
 
         return `
           <article
-            class="project-card"
+            class="card project-card"
             data-open-details="${escapeHTML(project.id)}"
             tabindex="0"
             role="button"
@@ -1034,35 +980,54 @@
 
             <h3>${escapeHTML(project.title || "Untitled Project")}</h3>
 
-            ${bothDeadlinesMarkup(project)}
+            <div class="project-meta">
+              ${bothDeadlinesMarkup(project)}
+            </div>
 
-            <p class="card-hint">Click the card to read the full project details.</p>
+            ${
+              plannerUrl
+                ? `
+                  <div class="attachment-label">
+                    <span aria-hidden="true">✓</span>
+                    Planner attached: ${escapeHTML(project.planner_file_name || "PDF planner")}
+                  </div>
+                `
+                : `
+                  <div class="muted" style="margin-top:12px">
+                    A planner file has not been attached yet.
+                  </div>
+                `
+            }
 
             <div class="project-actions">
               ${
                 plannerUrl
-                  ? `<a
-                      class="button button-primary"
-                      href="${escapeHTML(plannerUrl)}"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label="Open project planner PDF for ${escapeHTML(project.title || "project")}"
-                    >See Project Planner (PDF) ↗</a>`
-                  : `<button
-                      class="button button-primary"
-                      type="button"
-                      disabled
-                      title="A planner has not been uploaded for this project yet"
-                    >Planner Not Available</button>`
+                  ? `
+                    <a class="button button-primary button-small"
+                       href="${escapeHTML(plannerUrl)}"
+                       target="_blank"
+                       rel="noopener noreferrer">
+                      See Project Planner (PDF) ↗
+                    </a>
+                  `
+                  : `
+                    <button class="button button-primary button-small"
+                            type="button"
+                            disabled>
+                      Planner Not Available
+                    </button>
+                  `
               }
 
               ${
-                hasChecklist
-                  ? `<button
-                      class="button button-outline"
-                      type="button"
-                      data-open-checklist="${escapeHTML(project.id)}"
-                    >My Checklist</button>`
+                steps.length
+                  ? `
+                    <button class="button button-outline button-small"
+                            type="button"
+                            data-open-checklist="${escapeHTML(project.id)}">
+                      My Checklist
+                    </button>
+                  `
                   : ""
               }
             </div>
@@ -1072,17 +1037,17 @@
     }
 
     function openProjectDetails(projectId) {
-      const project = projects.find(
-        (item) => String(item.id) === String(projectId)
-      );
-
+      const project = getProjectById(projectId);
       if (!project) return;
 
-      activeProject = project;
-      previousFocus = document.activeElement;
+      lastFocusedElement = document.activeElement;
 
-      $("detailsSubject").textContent = project.subject || "School Project";
-      $("detailsTitle").textContent = project.title || "Project Details";
+      $("detailsSubject").textContent =
+        project.subject || "School Project";
+
+      $("detailsTitle").textContent =
+        project.title || "Project Details";
+
       $("detailsDescription").textContent =
         project.description || "No description provided.";
 
@@ -1098,8 +1063,7 @@
       $("detailsPdfButton").hidden = !plannerUrl;
       $("detailsPdfButton").href = plannerUrl || "#";
 
-      const hasChecklist =
-        normalizePlannerSteps(project.planner_steps).length > 0;
+      const hasChecklist = normalizeSteps(project.planner_steps).length > 0;
 
       $("detailsChecklistButton").hidden = !hasChecklist;
       $("detailsChecklistButton").dataset.projectId = project.id;
@@ -1115,193 +1079,164 @@
       $("detailsOverlay").classList.remove("show");
       $("detailsOverlay").setAttribute("aria-hidden", "true");
       restoreBodyScroll();
-      restoreFocus();
+
+      if (lastFocusedElement?.focus) lastFocusedElement.focus();
+      lastFocusedElement = null;
     }
 
     function openChecklist(projectId) {
-      const project = projects.find(
-        (item) => String(item.id) === String(projectId)
-      );
-
+      const project = getProjectById(projectId);
       if (!project) return;
 
       activeProject = project;
-      previousFocus = document.activeElement;
+      lastFocusedElement = document.activeElement;
 
-      $("checklistSubject").textContent = project.subject || "My Progress";
-      $("checklistTitle").textContent =
-        `${project.title || "Project"} Checklist`;
+      const saved = readProgress(project.id);
+      completedSteps = saved.completedSteps;
 
-      $("checklistDeadlines").innerHTML = bothDeadlinesMarkup(project);
+      $("plannerTitle").textContent =
+        project.title || "Project Checklist";
 
-      $("projectNotes").value = readNotes(project);
-      $("notesStatus").textContent = "Your notes are saved in this browser.";
+      $("plannerDetails").textContent =
+        "Subject: " + (project.subject || "Not specified");
 
+      $("plannerDeadlines").innerHTML = bothDeadlinesMarkup(project);
+      $("plannerNotes").value = saved.notes;
+
+      setMessage("plannerMessage", "");
       renderChecklist();
 
-      $("checklistOverlay").classList.add("show");
-      $("checklistOverlay").setAttribute("aria-hidden", "false");
+      $("plannerOverlay").classList.add("show");
+      $("plannerOverlay").setAttribute("aria-hidden", "false");
       document.body.style.overflow = "hidden";
 
-      $("closeChecklist").focus();
+      $("closePlanner").focus();
+    }
+
+    function updateProgress() {
+      const steps = normalizeSteps(activeProject?.planner_steps);
+      const total = steps.length;
+
+      completedSteps = completedSteps.filter(
+        index => Number.isInteger(index) && index >= 0 && index < total
+      );
+
+      const count = completedSteps.length;
+      const percentage = total ? Math.round(count / total * 100) : 0;
+
+      $("progressFill").style.width = percentage + "%";
+      $("progressLabel").textContent =
+        `${count} of ${total} steps completed · ${percentage}%`;
+
+      $("progressBar").setAttribute("aria-valuenow", String(percentage));
     }
 
     function renderChecklist() {
-      if (!activeProject) return;
-
-      const steps = normalizePlannerSteps(activeProject.planner_steps);
-      const checkedItems = getCheckedItems(activeProject);
-      const list = $("checklistList");
+      const steps = normalizeSteps(activeProject?.planner_steps);
 
       if (!steps.length) {
-        list.innerHTML = `
-          <div class="checklist-empty">
-            No checklist steps have been added to this project yet.
-            You can still use the notes area below for reminders.
-          </div>
+        $("plannerTasks").innerHTML = `
+          <p class="muted">
+            No checklist steps have been added to this project.
+          </p>
         `;
-      } else {
-        list.innerHTML = steps.map((step, index) => {
-          const checked = Boolean(checkedItems[index]);
-
-          return `
-            <div class="checklist-item ${checked ? "done" : ""}">
-              <input
-                type="checkbox"
-                id="check-${index}"
-                data-check-index="${index}"
-                ${checked ? "checked" : ""}
-              >
-              <label for="check-${index}">${escapeHTML(step)}</label>
-            </div>
-          `;
-        }).join("");
+        updateProgress();
+        return;
       }
 
-      updateProgress(steps, checkedItems);
-    }
+      $("plannerTasks").innerHTML = steps.map((step, index) => {
+        const checked = completedSteps.includes(index);
 
-    function updateProgress(steps, checkedItems) {
-      const total = steps.length;
-      const completed = steps.filter(
-        (_, index) => Boolean(checkedItems[index])
-      ).length;
+        return `
+          <label class="planner-task ${checked ? "done" : ""}">
+            <input type="checkbox"
+                   data-step="${index}"
+                   ${checked ? "checked" : ""}>
+            <span>${escapeHTML(step)}</span>
+          </label>
+        `;
+      }).join("");
 
-      const percent = total ? Math.round((completed / total) * 100) : 0;
-
-      $("progressText").textContent = `${percent}% complete`;
-      $("progressFill").style.width = `${percent}%`;
-      $("progressBar").setAttribute("aria-valuenow", String(percent));
-    }
-
-    function readNotes(project) {
-      try {
-        return localStorage.getItem(getNotesKey(project.id)) || "";
-      } catch {
-        return "";
-      }
-    }
-
-    function saveNotes() {
-      if (!activeProject) return;
-
-      try {
-        localStorage.setItem(
-          getNotesKey(activeProject.id),
-          $("projectNotes").value
-        );
-
-        $("notesStatus").textContent = "Saved in this browser.";
-      } catch {
-        $("notesStatus").textContent =
-          "Could not save notes. Check your browser storage settings.";
-      }
+      updateProgress();
     }
 
     function closeChecklist() {
-      $("checklistOverlay").classList.remove("show");
-      $("checklistOverlay").setAttribute("aria-hidden", "true");
-      restoreBodyScroll();
-      restoreFocus();
+      clearTimeout(notesSaveTimeout);
+
+      if (activeProject) saveProgress(false);
+
+      $("plannerOverlay").classList.remove("show");
+      $("plannerOverlay").setAttribute("aria-hidden", "true");
+
       activeProject = null;
+      completedSteps = [];
+
+      restoreBodyScroll();
+
+      if (lastFocusedElement?.focus) lastFocusedElement.focus();
+      lastFocusedElement = null;
     }
 
     function restoreBodyScroll() {
-      const anyModalOpen =
-        $("detailsOverlay").classList.contains("show") ||
-        $("checklistOverlay").classList.contains("show");
+      const detailsOpen = $("detailsOverlay").classList.contains("show");
+      const checklistOpen = $("plannerOverlay").classList.contains("show");
 
-      document.body.style.overflow = anyModalOpen ? "hidden" : "";
-    }
-
-    function restoreFocus() {
-      if (previousFocus && typeof previousFocus.focus === "function") {
-        previousFocus.focus();
-      }
-
-      previousFocus = null;
+      document.body.style.overflow =
+        detailsOpen || checklistOpen ? "hidden" : "";
     }
 
     async function loadProjects() {
       $("projectGrid").innerHTML = `
-        <div class="loading-state">Loading your projects...</div>
+        <div class="empty-state">
+          <h3>Loading projects...</h3>
+          <p class="muted">Connecting to the project database.</p>
+        </div>
       `;
 
-      try {
-        supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+      const { data, error } = await supabase
+        .from("projects")
+        .select(
+          "id, title, subject, phase1_due_date, phase2_due_date, description, instructions, planner_steps, planner_file_path, planner_file_name, published"
+        )
+        .eq("published", true)
+        .order("phase1_due_date", {
+          ascending: true,
+          nullsFirst: false
+        });
 
-        const { data, error } = await supabase
-          .from("projects")
-          .select(`
-            id,
-            title,
-            subject,
-            phase1_due_date,
-            phase2_due_date,
-            description,
-            instructions,
-            planner_steps,
-            planner_file_path,
-            planner_file_name,
-            published
-          `)
-          .eq("published", true)
-          .order("phase1_due_date", { ascending: true, nullsFirst: false });
-
-        if (error) throw error;
-
-        projects = Array.isArray(data) ? data : [];
-
-        renderProjects();
-
-        $("pageStatus").textContent = "";
-      } catch (error) {
+      if (error) {
         console.error("Could not load projects:", error);
 
-        $("projectCount").textContent = "Unavailable";
-
         $("projectGrid").innerHTML = `
-          <div class="error-state">
+          <div class="empty-state">
             <h3>Could not load projects</h3>
-            <p>Check your Supabase connection, database columns, API permissions, and Row Level Security policies.</p>
+            <p class="muted">${escapeHTML(error.message)}</p>
+            <p class="muted">
+              Check the Supabase URL/key, database columns, API access, and RLS policies.
+            </p>
             <button class="button button-primary" id="retryLoad" type="button">
               Try Again
             </button>
           </div>
         `;
 
-        $("pageStatus").textContent =
-          error?.message || "An unexpected error occurred.";
-
-        $("retryLoad")?.addEventListener("click", loadProjects);
+        $("retryLoad").addEventListener("click", loadProjects);
+        return;
       }
+
+      projects = data || [];
+      renderProjects();
+      setMessage("projectMessage", "");
     }
 
-    // Search projects.
-    $("searchInput").addEventListener("input", renderProjects);
+    // Main page controls.
+    $("exploreButton").addEventListener("click", () => {
+      $("projects").scrollIntoView({ behavior: "smooth" });
+    });
 
-    // Handle planner, checklist, and project-card clicks.
-    $("projectGrid").addEventListener("click", (event) => {
+    $("projectSearch").addEventListener("input", renderProjects);
+
+    $("projectGrid").addEventListener("click", event => {
       const checklistButton = event.target.closest("[data-open-checklist]");
 
       if (checklistButton) {
@@ -1310,18 +1245,17 @@
         return;
       }
 
-      // Clicking the PDF link should open the PDF, not the details popup.
+      // PDF links should open the PDF rather than the details popup.
       if (event.target.closest("a")) return;
 
-      const projectCard = event.target.closest("[data-open-details]");
+      const card = event.target.closest("[data-open-details]");
 
-      if (projectCard) {
-        openProjectDetails(projectCard.dataset.openDetails);
+      if (card) {
+        openProjectDetails(card.dataset.openDetails);
       }
     });
 
-    // Keyboard accessibility for project cards.
-    $("projectGrid").addEventListener("keydown", (event) => {
+    $("projectGrid").addEventListener("keydown", event => {
       if (event.target.closest("a, button")) return;
 
       if (event.key === "Enter" || event.key === " ") {
@@ -1334,11 +1268,11 @@
       }
     });
 
-    // Project details popup controls.
+    // Details popup controls.
     $("closeDetails").addEventListener("click", closeProjectDetails);
     $("closeDetailsBottom").addEventListener("click", closeProjectDetails);
 
-    $("detailsOverlay").addEventListener("click", (event) => {
+    $("detailsOverlay").addEventListener("click", event => {
       if (event.target === $("detailsOverlay")) {
         closeProjectDetails();
       }
@@ -1352,55 +1286,52 @@
     });
 
     // Checklist popup controls.
-    $("closeChecklist").addEventListener("click", closeChecklist);
-    $("closeChecklistBottom").addEventListener("click", closeChecklist);
+    $("closePlanner").addEventListener("click", closeChecklist);
+    $("closePlannerBottom").addEventListener("click", closeChecklist);
 
-    $("checklistOverlay").addEventListener("click", (event) => {
-      if (event.target === $("checklistOverlay")) {
-        closeChecklist();
-      }
+    $("plannerOverlay").addEventListener("click", event => {
+      if (event.target === $("plannerOverlay")) closeChecklist();
     });
 
-    // Save checklist checkboxes locally.
-    $("checklistList").addEventListener("change", (event) => {
-      const checkbox = event.target.closest("[data-check-index]");
-
+    $("plannerTasks").addEventListener("change", event => {
+      const checkbox = event.target.closest("[data-step]");
       if (!checkbox || !activeProject) return;
 
-      const checkedItems = getCheckedItems(activeProject);
-      checkedItems[checkbox.dataset.checkIndex] = checkbox.checked;
+      const index = Number(checkbox.dataset.step);
 
-      saveCheckedItems(activeProject, checkedItems);
+      if (checkbox.checked && !completedSteps.includes(index)) {
+        completedSteps.push(index);
+      } else if (!checkbox.checked) {
+        completedSteps = completedSteps.filter(item => item !== index);
+      }
 
-      const item = checkbox.closest(".checklist-item");
-      if (item) item.classList.toggle("done", checkbox.checked);
+      checkbox.closest(".planner-task")
+        ?.classList.toggle("done", checkbox.checked);
 
-      updateProgress(
-        normalizePlannerSteps(activeProject.planner_steps),
-        checkedItems
-      );
+      saveProgress(true);
     });
 
-    // Save notes automatically after typing stops.
-    $("projectNotes").addEventListener("input", () => {
-      $("notesStatus").textContent = "Saving...";
+    $("savePlanner").addEventListener("click", () => saveProgress(true));
+
+    $("plannerNotes").addEventListener("input", () => {
+      if (!activeProject) return;
+
+      setMessage("plannerMessage", "Saving...");
 
       clearTimeout(notesSaveTimeout);
-      notesSaveTimeout = setTimeout(saveNotes, 300);
+      notesSaveTimeout = setTimeout(() => saveProgress(false), 300);
     });
 
-    // Escape closes the topmost popup.
-    document.addEventListener("keydown", (event) => {
+    document.addEventListener("keydown", event => {
       if (event.key !== "Escape") return;
 
-      if ($("checklistOverlay").classList.contains("show")) {
+      if ($("plannerOverlay").classList.contains("show")) {
         closeChecklist();
       } else if ($("detailsOverlay").classList.contains("show")) {
         closeProjectDetails();
       }
     });
 
-    // Start the page.
     loadProjects();
   </script>
 </body>
