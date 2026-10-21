@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#10264D">
+  <meta name="description" content="Discover RISE, an initiative dedicated to making student life easier through organization, accessibility, and practical digital tools.">
+
+  <title>RISE Initiative | Rise. Learn. Succeed.</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --navy: #10264D;
+      --navy-light: #183966;
+      --blue: #2463C5;
+      --blue-light: #EAF1FF;
+      --gold: #D6B66C;
+      --white: #FFFFFF;
+      --background: #F5F8FF;
+      --text: #192A43;
+      --muted: #6D7B91;
+      --border: #E2E9F4;
+      --shadow: 0 12px 35px rgba(16, 38, 77, 0.07);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 100px;
+    }
+
+    body {
+      font-family: "Inter", sans-serif;
+      background: var(--background);
+      color: var(--text);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button, a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    button:focus-visible, a:focus-visible {
+      outline: 3px solid var(--gold);
+      outline-offset: 4px;
+    }
+
+    .container {
+      width: min(1120px, calc(100% - 40px));
+      margin-inline: auto;
+    }
+
+    /* Navigation */
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav {
+      min-height: 82px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      min-width: 0;
+    }
+
+    .brand img {
+      width: 51px;
+      height: 51px;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+
+    .brand-name {
+      color: var(--navy);
+      font-family: "Montserrat", sans-serif;
+      font-weight: 800;
+      font-size: 21px;
+      line-height: 1.15;
+      letter-spacing: 1.8px;
+    }
+
+    .brand-subtitle {
+      display: block;
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.25px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 27px;
+    }
+
+    .nav-links a {
+      font-size: 13px;
+      font-weight: 600;
+      color: #52627A;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--blue);
+    }
+
+    .nav-links .nav-button {
+      color: white;
+      background: var(--navy);
+      border-radius: 10px;
+      padding: 11px 17px;
+    }
+
+    .nav-links .nav-button:hover {
+      background: var(--blue);
+      color: white;
+    }
+
+    .menu-toggle {
+      display: none;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: white;
+      color: var(--navy);
+      font-size: 23px;
+      width: 44px;
+      height: 44px;
+      cursor: pointer;
+    }
+
+    /* Hero */
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse at 88% 10%, rgba(58, 107, 181, 0.28), transparent 35%),
+        linear-gradient(125deg, #10264D 0%, #153563 62%, #20477B 100%);
+      color: white;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      width: 390px;
+      height: 390px;
+      border: 1px solid rgba(214, 182, 108, 0.19);
+      border-radius: 50%;
+      right: -125px;
+      top: -150px;
+      pointer-events: none;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 260px;
+      height: 260px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 50%;
+      right: -65px;
+      top: -85px;
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      min-height: 440px;
+      padding-block: 78px 83px;
+      display: grid;
+      grid-template-columns: 1.35fr 0.65fr;
+      align-items: center;
+      gap: 55px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      color: var(--gold);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 25px;
+      height: 2px;
+      background: var(--gold);
+      border-radius: 4px;
+    }
+
+    .hero h1 {
+      margin-top: 19px;
+      max-width: 650px;
+      font-family: "Montserrat", sans-serif;
+      font-size: clamp(42px, 6vw, 68px);
+      line-height: 1.08;
+      letter-spacing: -2.5px;
+      font-weight: 800;
+    }
+
+    .hero h1 span {
+      display: block;
+      color: var(--gold);
+    }
+
+    .hero-description {
+      margin-top: 23px;
+      max-width: 590px;
+      color: #D8E3F3;
+      font-size: 16px;
+      line-height: 1.9;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 13px;
+      margin-top: 30px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      min-height: 47px;
+      padding: 12px 19px;
+      border: 1px solid transparent;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 700;
+      transition: transform 0.2s, background 0.2s;
+      cursor: pointer;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+    }
+
+    .button-gold {
+      background: var(--gold);
+      color: var(--navy);
+    }
+
+    .button-gold:hover {
+      background: #E4C987;
+    }
+
+    .button-outline {
+      border-color: rgba(255, 255, 255, 0.3);
+      color: white;
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .button-outline:hover {
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .hero-mark {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 270px;
+    }
+
+    .logo-frame {
+      width: min(260px, 100%);
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(214, 182, 108, 0.45);
+      border-radius: 35px;
+      background: rgba(255, 255, 255, 0.055);
+      box-shadow: 0 25px 75px rgba(0, 0, 0, 0.14);
+      transform: rotate(2deg);
+    }
+
+    .logo-frame img {
+      width: 76%;
+      height: 76%;
+      object-fit: contain;
+      transform: rotate(-2deg);
+    }
+
+    /* Shared sections */
+
+    section.content-section {
+      padding-block: 82px;
+    }
+
+    .section-heading {
+      max-width: 680px;
+      margin: 0 auto 39px;
+      text-align: center;
+    }
+
+    .section-kicker {
+      color: var(--blue);
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .section-heading h2 {
+      margin-top: 10px;
+      color: var(--navy);
+      font-family: "Montserrat", sans-serif;
+      font-size: clamp(27px, 4vw, 37px);
+      line-height: 1.25;
+      letter-spacing: -0.8px;
+    }
+
+    .section-heading p {
+      margin-top: 13px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.9;
+    }
+
+    /* Mission */
+
+    .mission-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 23px;
+    }
+
+    .info-card {
+      padding: 30px;
+      border: 1px solid var(--border);
+      border-radius: 17px;
+      background: white;
+      box-shadow: var(--shadow);
+    }
+
+    .icon-box {
+      width: 49px;
+      height: 49px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 13px;
+      background: var(--blue-light);
+      color: var(--blue);
+      font-size: 23px;
+      font-weight: 800;
+    }
+
+    .info-card h3 {
+      margin-top: 20px;
+      color: var(--navy);
+      font-family: "Montserrat", sans-serif;
+      font-size: 19px;
+    }
+
+    .info-card p {
+      margin-top: 11px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.95;
+    }
+
+    /* Principles */
+
+    .principles-section {
+      background: white;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .principles-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 19px;
+    }
+
+    .principle {
+      padding: 26px 23px;
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      background: #FBFCFF;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .principle:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow);
+    }
+
+    .principle-number {
+      color: var(--gold);
+      font-family: "Montserrat", sans-serif;
+      font-size: 29px;
+      font-weight: 800;
+    }
+
+    .principle h3 {
+      margin-top: 8px;
+      color: var(--navy);
+      font-family: "Montserrat", sans-serif;
+      font-size: 17px;
+    }
+
+    .principle p {
+      margin-top: 9px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.85;
+    }
+
+    /* Platforms */
+
+    .platforms-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 23px;
+    }
+
+    .platform-card {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 30px;
+      min-height: 290px;
+      border: 1px solid var(--border);
+      border-radius: 17px;
+      background: white;
+      box-shadow: var(--shadow);
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .platform-card:hover {
+      transform: translateY(-4px);
+      border-color: #B8CCEF;
+    }
+
+    .platform-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 55px;
+      height: 55px;
+      border-radius: 15px;
+      background: var(--navy);
+      color: white;
+      font-size: 25px;
+    }
+
+    .platform-tag {
+      display: inline-block;
+      margin-top: 21px;
+      padding: 5px 10px;
+      border-radius: 6px;
+      background: var(--blue-light);
+      color: var(--blue);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+    }
+
+    .platform-card h3 {
+      margin-top: 11px;
+      color: var(--navy);
+      font-family: "Montserrat", sans-serif;
+      font-size: 21px;
+    }
+
+    .platform-card p {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.9;
+    }
+
+    .platform-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: auto;
+      padding-top: 22px;
+      color: var(--blue);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .platform-link:hover {
+      color: var(--navy);
+    }
+
+    /* Closing banner */
+
+    .closing {
+      padding-bottom: 82px;
+    }
+
+    .closing-card {
+      position: relative;
+      overflow: hidden;
+      padding: 48px 35px;
+      border-radius: 20px;
+      background: linear-gradient(120deg, var(--navy), #20477B);
+      color: white;
+      text-align: center;
+    }
+
+    .closing-card::after {
+      content: "";
+      position: absolute;
+      width: 210px;
+      height: 210px;
+      border: 1px solid rgba(214, 182, 108, 0.23);
+      border-radius: 50%;
+      right: -75px;
+      bottom: -135px;
+    }
+
+    .closing-card h2 {
+      font-family: "Montserrat", sans-serif;
+      font-size: clamp(26px, 4vw, 36px);
+      line-height: 1.3;
+    }
+
+    .closing-card h2 span {
+      color: var(--gold);
+    }
+
+    .closing-card p {
+      max-width: 580px;
+      margin: 13px auto 0;
+      color: #D8E3F3;
+      font-size: 14px;
+      line-height: 1.9;
+    }
+
+    /* Footer */
+
+    footer {
+      background: white;
+      border-top: 1px solid var(--border);
+    }
+
+    .footer-inner {
+      min-height: 105px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding-block: 23px;
+    }
+
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+    }
+
+    .footer-brand img {
+      width: 39px;
+      height: 39px;
+      object-fit: contain;
+    }
+
+    .footer-brand strong {
+      display: block;
+      color: var(--navy);
+      font-family: "Montserrat", sans-serif;
+      font-size: 13px;
+      letter-spacing: 1px;
+    }
+
+    .footer-brand small {
+      display: block;
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .footer-note {
+      color: var(--muted);
+      font-size: 11px;
+      text-align: right;
+    }
+
+    .footer-note strong {
+      display: block;
+      color: var(--navy);
+      font-size: 12px;
+      margin-bottom: 3px;
+    }
+
+    /* Responsive */
+
+    @media (max-width: 760px) {
+      .nav {
+        min-height: 72px;
+      }
+
+      .brand img {
+        width: 44px;
+        height: 44px;
+      }
+
+      .brand-name {
+        font-size: 18px;
+      }
+
+      .brand-subtitle {
+        font-size: 8px;
+      }
+
+      .menu-toggle {
+        display: block;
+        flex-shrink: 0;
+      }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 71px;
+        left: 0;
+        right: 0;
+        padding: 17px 20px 22px;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        background: white;
+        border-bottom: 1px solid var(--border);
+        box-shadow: 0 15px 25px rgba(16, 38, 77, 0.08);
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      .nav-links a {
+        padding: 13px 8px;
+      }
+
+      .nav-links .nav-button {
+        margin-top: 8px;
+        text-align: center;
+      }
+
+      .hero-inner {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        padding-block: 59px 55px;
+      }
+
+      .hero h1 {
+        font-size: clamp(40px, 10vw, 58px);
+      }
+
+      .hero-description {
+        font-size: 14px;
+      }
+
+      .hero-mark {
+        min-height: auto;
+      }
+
+      .logo-frame {
+        width: 160px;
+        border-radius: 25px;
+      }
+
+      section.content-section {
+        padding-block: 59px;
+      }
+
+      .mission-grid,
+      .platforms-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .principles-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .info-card,
+      .platform-card {
+        padding: 25px;
+      }
+
+      .closing {
+        padding-bottom: 59px;
+      }
+
+      .closing-card {
+        padding: 37px 22px;
+      }
+
+      .footer-inner {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .footer-note {
+        text-align: left;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <header class="topbar">
+    <div class="container nav">
+      <a class="brand" href="#home" aria-label="RISE Initiative home">
+        <img src="rise-logo.png" alt="RISE Initiative logo">
+        <span>
+          <span class="brand-name">RISE</span>
+          <span class="brand-subtitle">THE RISE INITIATIVE</span>
+        </span>
+      </a>
+
+      <button class="menu-toggle" id="menuToggle"
+        aria-label="Open navigation menu"
+        aria-expanded="false"
+        aria-controls="navLinks">☰</button>
+
+      <nav class="nav-links" id="navLinks">
+        <a href="#home">Home</a>
+        <a href="#about">About RISE</a>
+        <a href="#mission">Our Mission</a>
+        <a href="#platforms">Our Platforms</a>
+        <a href="mase-navigator.html" class="nav-button">Project Navigator ↗</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- Hero -->
+    <section class="hero" id="home">
+      <div class="container hero-inner">
+        <div>
+          <div class="eyebrow">Introducing the RISE Initiative</div>
+
+          <h1>
+            A better way to
+            <span>experience school.</span>
+          </h1>
+
+          <p class="hero-description">
+            RISE is dedicated to making student life easier through
+            organization, accessibility, and practical digital solutions.
+            Because managing school responsibilities should be simpler,
+            clearer, and less stressful.
+          </p>
+
+          <div class="hero-actions">
+            <a class="button button-gold" href="#about">
+              Discover RISE <span>→</span>
+            </a>
+            <a class="button button-outline" href="#platforms">
+              Explore Our Platforms
+            </a>
+          </div>
+        </div>
+
+        <div class="hero-mark">
+          <div class="logo-frame">
+            <img src="rise-logo.png" alt="RISE logo">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section class="content-section" id="about">
+      <div class="container">
+        <div class="section-heading">
+          <div class="section-kicker">Who We Are</div>
+          <h2>More than a collection of websites.</h2>
+          <p>
+            RISE is an initiative built around one simple idea:
+            improving the everyday student experience with tools that
+            make academic life more manageable.
+          </p>
+        </div>
+
+        <div class="mission-grid">
+          <article class="info-card" id="mission">
+            <div class="icon-box" aria-hidden="true">◎</div>
+            <h3>Our Mission</h3>
+            <p>
+              Our mission is to make school life easier by helping students
+              find important information, organize their academic
+              responsibilities, and access the resources they need in one
+              convenient place. RISE aims to reduce unnecessary confusion
+              and help students focus on learning and personal growth.
+            </p>
+          </article>
+
+          <article class="info-card">
+            <div class="icon-box" aria-hidden="true">↗</div>
+            <h3>Our Vision</h3>
+            <p>
+              We envision a school experience where students feel more
+              organized, informed, and prepared. By developing practical
+              digital tools and continuously improving how information is
+              shared, RISE aims to make everyday academic tasks simpler
+              for students.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- What RISE stands for -->
+    <section class="content-section principles-section">
+      <div class="container">
+        <div class="section-heading">
+          <div class="section-kicker">Our Approach</div>
+          <h2>Built around students.</h2>
+          <p>
+            Every part of RISE is guided by the goal of making the student
+            experience more organized, accessible, and productive.
+          </p>
+        </div>
+
+        <div class="principles-grid">
+          <article class="principle">
+            <div class="principle-number">01</div>
+            <h3>Organization</h3>
+            <p>
+              Keep projects, instructions, deadlines, and academic
+              information easier to find and manage.
+            </p>
+          </article>
+
+          <article class="principle">
+            <div class="principle-number">02</div>
+            <h3>Accessibility</h3>
+            <p>
+              Bring useful information and learning resources together
+              so students can find what they need more easily.
+            </p>
+          </article>
+
+          <article class="principle">
+            <div class="principle-number">03</div>
+            <h3>Improvement</h3>
+            <p>
+              Use practical ideas and digital tools to solve everyday
+              challenges and improve the school experience.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Platforms -->
+    <section class="content-section" id="platforms">
+      <div class="container">
+        <div class="section-heading">
+          <div class="section-kicker">The RISE Network</div>
+          <h2>One initiative. Multiple solutions.</h2>
+          <p>
+            RISE brings together digital platforms designed to help
+            students manage different parts of their academic lives.
+          </p>
+        </div>
+
+        <div class="platforms-grid">
+
+          <article class="platform-card">
+            <div class="platform-icon" aria-hidden="true">▤</div>
+            <span class="platform-tag">Projects & Planning</span>
+            <h3>Project Navigator</h3>
+            <p>
+              Find project instructions, planners, important deadlines,
+              and other project-related information in one organized place.
+              Project Navigator helps students understand what they need
+              to do and keep track of their project responsibilities.
+            </p>
+            <a class="platform-link" href="mase-navigator.html">
+              Visit Project Navigator <span>→</span>
+            </a>
+          </article>
+
+          <article class="platform-card">
+            <div class="platform-icon" aria-hidden="true">✓</div>
+            <span class="platform-tag">Exams & Preparation</span>
+            <h3>Exam Navigator</h3>
+            <p>
+              A dedicated platform for quarter exams and quizzes,
+              designed to help students keep track of assessments and
+              access the study materials they need to prepare.
+            </p>
+            <!-- Change this link when your exam website is ready. -->
+            <a class="platform-link" href="exam-navigator.html">
+              Visit Exam Navigator <span>→</span>
+            </a>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Closing message -->
+    <section class="closing">
+      <div class="container">
+        <div class="closing-card">
+          <h2>Our goal is simple.<br><span>Make student life easier.</span></h2>
+          <p>
+            Through thoughtful ideas, better organization, and practical
+            technology, RISE aims to help students spend less time
+            searching for information and more time learning, growing,
+            and working toward their goals.
+          </p>
+          <div style="margin-top: 25px;">
+            <span style="color: #D6B66C; font-family: Montserrat, sans-serif;
+              font-size: 17px; font-weight: 800; letter-spacing: 1.2px;">
+              Rise. Learn. Succeed.
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <img src="rise-logo.png" alt="">
+        <span>
+          <strong>RISE INITIATIVE</strong>
+          <small>Making student life easier.</small>
+        </span>
+      </div>
+
+      <div class="footer-note">
+        <strong>Rise. Learn. Succeed.</strong>
+        <span>An initiative focused on improving the student experience.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const menuToggle = document.getElementById("menuToggle");
+    const navLinks = document.getElementById("navLinks");
+
+    menuToggle.addEventListener("click", () => {
+      const isOpen = navLinks.classList.toggle("open");
+      menuToggle.setAttribute("aria-expanded", String(isOpen));
+      menuToggle.setAttribute(
+        "aria-label",
+        isOpen ? "Close navigation menu" : "Open navigation menu"
+      );
+      menuToggle.textContent = isOpen ? "✕" : "☰";
+    });
+
+    navLinks.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("open");
+        menuToggle.setAttribute("aria-expanded", "false");
+        menuToggle.setAttribute("aria-label", "Open navigation menu");
+        menuToggle.textContent = "☰";
+      });
+    });
+  </script>
+
+</body>
+</html>
