@@ -553,6 +553,43 @@
         transition-duration: .01ms !important;
       }
     }
+    
+.rise-logo-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-left: 12px;
+  padding: 5px;
+  border: 1px solid #E2E9F4;
+  border-radius: 10px;
+  background: #FFFFFF;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.rise-logo-link img {
+  display: block;
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+}
+
+.rise-logo-link:hover {
+  border-color: #D6B66C;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 600px) {
+  .rise-logo-link {
+    margin-left: 6px;
+  }
+
+  .rise-logo-link img {
+    width: 32px;
+    height: 32px;
+  }
+}
+
   </style>
 </head>
 
@@ -563,6 +600,10 @@
         <img class="logo"
              src="logo-navigator.png"
              alt="MASE Project Navigator logo">
+        
+<a href="rise.html" class="rise-logo-link" title="About the RISE Initiative">
+  <img src="rise-logo.png" alt="RISE Initiative Logo">
+</a>
         <div>
           <p class="brand-name">MASE Project Navigator</p>
           <p class="brand-subtitle">Modern American School of Egypt</p>
