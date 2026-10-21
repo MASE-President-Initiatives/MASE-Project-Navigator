@@ -1,0 +1,101 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#10264d">
+<title>RISE Exam Navigator | MASE Grade 7</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#10264d;--blue:#2463c5;--light-blue:#eaf2ff;--pale:#f5f8ff;--text:#1d2b43;--muted:#68778d;--border:#dce5f2;--green:#19734b;--red:#b42318;--shadow:0 12px 35px rgba(16,38,77,.09)}
+*{box-sizing:border-box}body{margin:0;color:var(--text);background:#f6f8fc;font-family:Inter,Arial,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}button,input,select{font:inherit}button{cursor:pointer}h1,h2,h3,.brand-name,.button{font-family:Manrope,Inter,Arial,sans-serif}
+.navbar{min-height:128px;padding:12px clamp(16px,4vw,60px);display:flex;align-items:center;gap:20px;color:#fff;background:var(--navy)}.brand{display:flex;align-items:center;gap:18px;min-width:0}.logo{width:92px;height:92px;object-fit:contain;border-radius:14px}.brand-name{margin:0;font-size:clamp(18px,2.2vw,27px);font-weight:800;line-height:1.3;letter-spacing:-.6px}.brand-subtitle{margin:6px 0 0;color:#d5e4ff;font-size:13px}.rise-logo-link{display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;padding:5px;border:1px solid #e2e9f4;border-radius:10px;background:#fff}.rise-logo-link img{width:42px;height:42px;object-fit:contain}.nav-spacer{flex:1}.nav-link{color:white;text-decoration:none;padding:10px 14px;border:1px solid #ffffff59;border-radius:10px;font-size:12px;font-weight:700;white-space:nowrap}
+.hero{position:relative;display:flex;align-items:center;min-height:340px;overflow:hidden;color:white;background:linear-gradient(110deg,#10264d,#2463c5)}.hero:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,25,54,.94),rgba(12,40,83,.45))}.hero-content{position:relative;width:100%;max-width:1200px;padding:48px 26px;margin:auto}.eyebrow{color:#cfe0ff;letter-spacing:2px;text-transform:uppercase;font-size:12px;font-weight:800}.hero h1{max-width:760px;margin:12px 0 18px;font-size:clamp(35px,5vw,59px);line-height:1.1;letter-spacing:-1.8px}.hero p{max-width:640px;margin:0;color:#e2ecff;font-size:15px}
+.button{display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:11px 16px;border:0;border-radius:10px;font-size:13px;font-weight:800;text-decoration:none;transition:transform .15s;line-height:1.45}.button:hover{transform:translateY(-1px)}.button:disabled{opacity:.6;cursor:not-allowed}.primary{color:white;background:var(--blue)}.white{color:var(--navy);background:white}.outline{color:var(--navy);background:white;border:1px solid var(--border)}.small{padding:8px 11px;font-size:12px}
+.container{max-width:1200px;padding:0 24px;margin:0 auto}.section{padding:42px 0}.section-heading{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:18px;margin-bottom:24px}.section-heading h2{margin:0;color:var(--navy);font-size:28px;letter-spacing:-.6px}.section-heading p{margin:5px 0 0;color:var(--muted);font-size:14px}
+.metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:-32px;position:relative}.metric{padding:20px;border:1px solid var(--border);border-radius:15px;background:#fff;box-shadow:var(--shadow)}.metric span{display:block;color:var(--muted);font-size:12px;font-weight:700}.metric strong{display:block;color:var(--navy);font-size:30px;font-family:Manrope,sans-serif}
+.filters{display:grid;grid-template-columns:2fr 1fr 1fr;gap:12px;margin-bottom:22px}.search,.filter{width:100%;min-width:0;padding:12px 14px;border:1px solid #ccd7e7;border-radius:10px;background:#fff;color:var(--text);outline:none}.search:focus,.filter:focus{border-color:var(--blue);box-shadow:0 0 0 3px #2463c51f}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}.card{border:1px solid var(--border);border-radius:16px;background:white;box-shadow:var(--shadow)}.exam-card{display:flex;flex-direction:column;min-height:290px;padding:22px;transition:transform .18s,box-shadow .18s}.exam-card:hover{transform:translateY(-3px);box-shadow:0 17px 40px #10264d21}.tag{display:inline-flex;align-self:flex-start;margin-bottom:14px;padding:6px 10px;border-radius:100px;color:#214f99;background:var(--light-blue);font-size:11px;font-weight:800}.exam-card h3{margin:0 0 8px;color:var(--navy);font-size:19px;line-height:1.4;overflow-wrap:anywhere}.subject{margin:0 0 12px;color:var(--muted);font-size:13px}.date-box{padding:10px 12px;border:1px solid #e5ebf4;border-radius:9px;background:#f7f9fd}.date-box b{display:block;color:var(--navy);font-size:12px}.date-box span{color:var(--muted);font-size:13px}.topics{margin:14px 0 0;color:var(--muted);font-size:13px;white-space:pre-wrap;overflow-wrap:anywhere}.card-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;padding-top:18px}.resource{display:block;margin-top:10px;color:var(--green);font-size:12px;font-weight:700;overflow-wrap:anywhere}.empty{grid-column:1/-1;padding:42px 20px;text-align:center;border:1px dashed #c5d2e5;border-radius:15px;background:white}.empty h3{margin:0 0 7px;color:var(--navy)}.muted{color:var(--muted);font-size:13px}.message{margin-top:12px;font-size:13px;white-space:pre-wrap;overflow-wrap:anywhere}.error{color:var(--red)}.success{color:var(--green)}
+.footer{margin-top:30px;padding:27px 20px;text-align:center;color:#d7e2f2;background:#0c1e3d;font-size:12px}.footer strong{color:white}.footer p{margin-bottom:0}
+@media(max-width:950px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.logo{width:78px;height:78px}.navbar{min-height:105px}}
+@media(max-width:620px){.navbar{padding:12px 15px;gap:9px;flex-wrap:wrap}.brand{gap:10px}.logo{width:55px;height:55px}.brand-name{font-size:15px}.brand-subtitle{font-size:10px}.rise-logo-link img{width:30px;height:30px}.nav-spacer{display:none}.nav-link{padding:7px 9px;font-size:10px}.hero-content{padding:34px 20px}.container{padding:0 17px}.section{padding:30px 0}.metrics{grid-template-columns:1fr;gap:10px;margin-top:-18px}.metric{padding:14px}.metric strong{font-size:24px}.filters{grid-template-columns:1fr}.grid{grid-template-columns:1fr}.section-heading h2{font-size:24px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<header>
+<nav class="navbar">
+  <div class="brand">
+    <img class="logo" src="logo-exam.png" alt="MASE logo">
+    <a class="rise-logo-link" href="https://mase-president-initiatives.github.io/MASE-RISE-Initiative/rise.html" title="About RISE"><img src="rise-logo.png" alt="RISE logo"></a>
+    <div><p class="brand-name">RISE Exam Navigator</p><p class="brand-subtitle">Modern American School of Egypt </p></div>
+  </div>
+  <div class="nav-spacer"></div>
+  <a class="nav-link" href="#assessments">View Exams</a>
+  <a class="nav-link" href="https://mase-president-initiatives.github.io/MASE-RISE-Initiative/rise.html">About RISE</a>
+</nav>
+<section class="hero">
+  <div class="hero-content">
+    <div class="eyebrow">Rise. Learn. Succeed.</div>
+    <h1>Your exams and quizzes, all in one place.</h1>
+    <p>Find upcoming Grade 7 exams, quiz dates, covered topics, instructions, and revision resources — all in one place.</p>
+    <div style="margin-top:24px"><button class="button white" id="explore" type="button">Explore Assessments ↓</button></div>
+  </div>
+</section>
+</header>
+<main>
+<section class="section">
+<div class="container">
+  <div class="metrics">
+    <div class="metric"><span>Upcoming assessments</span><strong id="upcomingCount">—</strong></div>
+    <div class="metric"><span>Published quizzes</span><strong id="quizCount">—</strong></div>
+    <div class="metric"><span>Revision resources</span><strong id="resourceCount">—</strong></div>
+  </div>
+</div>
+</section>
+<section class="section" id="assessments" style="padding-top:10px">
+<div class="container">
+  <div class="section-heading"><div><h2>Explore Assessments</h2><p>Choose an assessment to view its date, topics, and study materials.</p></div></div>
+  <div class="filters">
+    <input class="search" id="search" type="search" placeholder="Search exams, quizzes, subjects, or topics..." aria-label="Search assessments">
+    <select class="filter" id="subjectFilter" aria-label="Filter by subject"><option value="">All subjects</option></select>
+    <select class="filter" id="typeFilter" aria-label="Filter by type"><option value="">All assessment types</option><option>Quarter Exam</option><option>Quiz</option><option>Test</option><option>Other</option></select>
+  </div>
+  <div class="grid" id="assessmentGrid" aria-live="polite"><div class="empty"><h3>Loading assessments...</h3><p class="muted">Connecting to the exam database.</p></div></div>
+  <div class="message" id="message" role="status"></div>
+  <div style="margin-top:40px">
+    <div class="section-heading"><div><h2>Past Assessments</h2><p>Published assessments whose dates have passed.</p></div></div>
+    <div class="grid" id="pastGrid"><div class="empty"><p class="muted">Loading...</p></div></div>
+  </div>
+</div>
+</section>
+</main>
+<footer class="footer"><strong>RISE Exam Navigator</strong><p>Grade 7 · Modern American School of Egypt</p><p>Rise. Learn. Succeed.</p></footer>
+<script type="module">
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+const SUPABASE_URL="https://fawbhtftewddsaysvvjj.supabase.co";
+const SUPABASE_PUBLIC_KEY="sb_publishable_MPQKB4vGtFSjqNaBXQD3ww_RmX-OqBj";
+const supabase=createClient(SUPABASE_URL,SUPABASE_PUBLIC_KEY);
+const $=id=>document.getElementById(id);
+let assessments=[],resources=[];
+function esc(v=""){return String(v).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));}
+function dateLabel(v){if(!v)return "Date not announced";const m=String(v).match(/^(\d{4})-(\d{2})-(\d{2})$/);if(m){const d=new Date(+m[1],+m[2]-1,+m[3]);return d.toLocaleDateString("en-US",{year:"numeric",month:"short",day:"numeric"});}const d=new Date(v);return Number.isNaN(d.getTime())?"Date not announced":d.toLocaleDateString("en-US",{year:"numeric",month:"short",day:"numeric"});}
+function dateKey(v){return v?String(v).slice(0,10):"";}
+function isPast(a){return a.assessment_date && dateKey(a.assessment_date)<new Date().toLocaleDateString("en-CA");}
+function fileUrl(r){if(r.external_url)return r.external_url;if(!r.file_path)return "";return supabase.storage.from("rise-exam-resources").getPublicUrl(r.file_path).data.publicUrl;}
+function renderCard(a){const rr=resources.filter(r=>r.assessment_id===a.id);const date=dateLabel(a.assessment_date);const today=new Date();today.setHours(0,0,0,0);const d=a.assessment_date?new Date(a.assessment_date+"T00:00:00"):null;const days=d?Math.round((d-today)/86400000):null;const countdown=days===null?"":days===0?"Today":days>0?`${days} day${days===1?"":"s"} away`:"Date passed";
+return `<article class="card exam-card"><span class="tag">${esc(a.assessment_type||"Assessment")}</span><h3>${esc(a.title||"Untitled assessment")}</h3><p class="subject">${esc(a.subject||"Subject not specified")}</p><div class="date-box"><b>Assessment date</b><span>${esc(date)}${a.assessment_time?" · "+esc(a.assessment_time):""}</span>${countdown?`<span style="display:block;font-weight:700;color:${days>=0?"#214f99":"#68778d"}">${esc(countdown)}</span>`:""}</div>${a.topics?`<p class="topics"><b>Covered topics</b><br>${esc(a.topics)}</p>`:""}${a.instructions?`<p class="topics"><b>Instructions</b><br>${esc(a.instructions)}</p>`:""}${rr.map(r=>{const url=fileUrl(r);return url?`<a class="resource" href="${esc(url)}" target="_blank" rel="noopener noreferrer">↗ ${esc(r.title||r.file_name||"Revision resource")}</a>`:"";}).join("")}${!rr.length?'<p class="muted">No revision resources attached yet.</p>':""}</article>`;}
+function render(){const q=$("search").value.trim().toLowerCase(),s=$("subjectFilter").value,t=$("typeFilter").value;const matches=assessments.filter(a=>{const searchable=[a.title,a.subject,a.assessment_type,a.topics,a.instructions].filter(Boolean).join(" ").toLowerCase();return searchable.includes(q)&&(!s||a.subject===s)&&(!t||a.assessment_type===t);});const upcoming=matches.filter(a=>!isPast(a)).sort((a,b)=>(a.assessment_date||"9999").localeCompare(b.assessment_date||"9999"));const past=matches.filter(isPast).sort((a,b)=>(b.assessment_date||"").localeCompare(a.assessment_date||""));$("assessmentGrid").innerHTML=upcoming.length?upcoming.map(renderCard).join(""):`<div class="empty"><h3>${assessments.length?"No matching upcoming assessments":"No published assessments yet"}</h3><p class="muted">${assessments.length?"Try changing your search or filters.":"Please check back when your administrator publishes an exam or quiz."}</p></div>`;$("pastGrid").innerHTML=past.length?past.map(renderCard).join(""):`<div class="empty"><h3>No past assessments to show</h3><p class="muted">Published past assessments will appear here.</p></div>`;}
+async function load(){const grid=$("assessmentGrid");grid.innerHTML='<div class="empty"><h3>Loading assessments...</h3><p class="muted">Connecting to Supabase.</p></div>';
+const [ar,rr]=await Promise.all([
+supabase.from("rise_exam_assessments").select("id,title,subject,assessment_type,assessment_date,assessment_time,topics,instructions,published,created_at").eq("published",true).order("assessment_date",{ascending:true,nullsFirst:false}),
+supabase.from("rise_exam_resources").select("id,assessment_id,title,file_path,file_name,external_url,published").eq("published",true)
+]);
+if(ar.error||rr.error){console.error(ar.error||rr.error);grid.innerHTML=`<div class="empty"><h3>Could not load assessments</h3><p class="muted">${esc((ar.error||rr.error).message)}</p><p class="muted">Check that the exam SQL setup has been run in your existing Supabase project.</p><button class="button primary" id="retry">Try Again</button></div>`;$("retry").addEventListener("click",load);$("upcomingCount").textContent=$("quizCount").textContent=$("resourceCount").textContent="—";return;}
+assessments=ar.data||[];resources=(rr.data||[]).filter(r=>!r.assessment_id||assessments.some(a=>a.id===r.assessment_id));const subjects=[...new Set(assessments.map(a=>a.subject).filter(Boolean))].sort();$("subjectFilter").innerHTML='<option value="">All subjects</option>'+subjects.map(s=>`<option value="${esc(s)}">${esc(s)}</option>`).join("");$("upcomingCount").textContent=assessments.filter(a=>!isPast(a)).length;$("quizCount").textContent=assessments.filter(a=>a.assessment_type==="Quiz").length;$("resourceCount").textContent=resources.length;render();}
+$("explore").addEventListener("click",()=>$("assessments").scrollIntoView({behavior:"smooth"}));$("search").addEventListener("input",render);$("subjectFilter").addEventListener("change",render);$("typeFilter").addEventListener("change",render);load();
+</script>
+</body>
+</html>
