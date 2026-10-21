@@ -1,0 +1,108 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#10264d">
+<title>RISE Exam Navigator | Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#10264d;--blue:#2463c5;--light-blue:#eaf2ff;--text:#1d2b43;--muted:#68778d;--border:#dce5f2;--red:#b42318;--green:#19734b;--shadow:0 12px 35px #10264d17}
+*{box-sizing:border-box}body{margin:0;background:#f6f8fc;color:var(--text);font:15px/1.6 Inter,Arial,sans-serif}h1,h2,h3,.button,.brand-name{font-family:Manrope,Inter,sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer}.navbar{min-height:112px;padding:12px clamp(16px,4vw,60px);display:flex;align-items:center;gap:15px;background:var(--navy);color:#fff}.brand{display:flex;align-items:center;gap:15px}.logo{width:78px;height:78px;object-fit:contain}.brand-name{margin:0;font-size:clamp(18px,2.2vw,26px);font-weight:800}.brand-subtitle{margin:4px 0 0;color:#d5e4ff;font-size:12px}.rise-logo{padding:5px;border-radius:9px;background:#fff}.rise-logo img{display:block;width:38px;height:38px;object-fit:contain}.spacer{flex:1}.navlink{color:white;text-decoration:none;padding:9px 12px;border:1px solid #ffffff59;border-radius:9px;font-size:12px;font-weight:700}.hero{padding:34px 24px;background:linear-gradient(110deg,#10264d,#2463c5);color:white}.hero-inner{max-width:1150px;margin:auto}.eyebrow{font-size:11px;font-weight:800;letter-spacing:2px;color:#cfe0ff;text-transform:uppercase}.hero h1{font-size:clamp(28px,4vw,42px);margin:6px 0}.hero p{margin:0;color:#e2ecff;font-size:14px}.container{max-width:1150px;padding:28px 22px 50px;margin:auto}.panel{padding:24px;border:1px solid var(--border);border-radius:16px;background:white;box-shadow:var(--shadow);margin-bottom:22px}.panel h2{margin:0 0 5px;color:var(--navy);font-size:23px}.muted{color:var(--muted);font-size:13px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.field{display:flex;flex-direction:column;gap:6px}.field label{font-size:12px;font-weight:800;color:var(--navy)}input,select,textarea{width:100%;min-width:0;padding:11px 12px;border:1px solid #ccd7e7;border-radius:9px;background:white;color:var(--text);outline:none}textarea{min-height:95px;resize:vertical}input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px #2463c51f}.wide{grid-column:1/-1}.button{display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:10px 14px;border:0;border-radius:9px;font-size:12px;font-weight:800;text-decoration:none}.primary{background:var(--blue);color:#fff}.outline{border:1px solid var(--border);background:#fff;color:var(--navy)}.danger{background:#fff0ef;color:var(--red);border:1px solid #f4c5c1}.button:disabled{opacity:.6;cursor:not-allowed}.actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:18px}.message{margin-top:12px;font-size:13px;white-space:pre-wrap;overflow-wrap:anywhere}.error{color:var(--red)}.success{color:var(--green)}.assessment{padding:17px;border:1px solid var(--border);border-radius:12px;margin-top:12px;background:#fff}.assessment h3{margin:0;color:var(--navy);font-size:17px}.assessment p{margin:4px 0;color:var(--muted);font-size:13px;white-space:pre-wrap}.tag{display:inline-block;padding:4px 9px;border-radius:100px;background:var(--light-blue);color:#214f99;font-size:10px;font-weight:800;margin-bottom:8px}.tag.draft{background:#fff4d9;color:#7c5800}.hidden{display:none!important}.footer{padding:24px;text-align:center;background:#0c1e3d;color:#d7e2f2;font-size:12px}.footer strong{color:#fff}
+@media(max-width:650px){.navbar{padding:12px 14px;flex-wrap:wrap}.brand{gap:9px}.logo{width:55px;height:55px}.rise-logo img{width:30px;height:30px}.brand-name{font-size:16px}.brand-subtitle{font-size:10px}.spacer{display:none}.navlink{font-size:10px;padding:7px}.container{padding:20px 14px 35px}.panel{padding:17px}.grid{grid-template-columns:1fr}.wide{grid-column:auto}.hero{padding:28px 18px}}
+</style>
+</head>
+<body>
+<header>
+<nav class="navbar">
+ <div class="brand">
+  <img class="logo" src="logo-navigator.png" alt="MASE logo">
+  <a class="rise-logo" href="https://mase-president-initiatives.github.io/MASE-RISE-Initiative/rise.html" title="RISE home"><img src="rise-logo.png" alt="RISE logo"></a>
+  <div><p class="brand-name">RISE Exam Navigator</p><p class="brand-subtitle">Administrator Portal · Grade 7</p></div>
+ </div>
+ <div class="spacer"></div>
+ <a class="navlink" href="exam-navigator.html">Student Page ↗</a>
+</nav>
+<section class="hero"><div class="hero-inner"><div class="eyebrow">Rise. Learn. Succeed.</div><h1>Exam Management</h1><p>Create assessments, publish dates and topics, and attach revision resources.</p></div></section>
+</header>
+<main class="container">
+<section class="panel" id="loginPanel">
+ <h2>Administrator Sign In</h2>
+ <p class="muted">Sign in with an authorized administrator account. Student accounts do not have access to this page.</p>
+ <form id="loginForm" class="grid">
+  <div class="field"><label for="email">Administrator email</label><input id="email" type="email" autocomplete="username" required></div>
+  <div class="field"><label for="password">Password</label><input id="password" type="password" autocomplete="current-password" required></div>
+  <div class="wide actions"><button class="button primary" id="loginButton">Sign In</button></div>
+ </form>
+ <div class="message" id="loginMessage" role="status"></div>
+</section>
+<section id="adminPanel" class="hidden">
+ <div class="panel">
+  <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap"><div><h2>Assessment Editor</h2><p class="muted">Create or edit a Grade 7 exam, quiz, or test.</p></div><button class="button outline" id="signOut">Sign Out</button></div>
+  <form id="assessmentForm">
+   <input id="recordId" type="hidden">
+   <div class="grid" style="margin-top:18px">
+    <div class="field"><label for="title">Assessment title *</label><input id="title" maxlength="180" required placeholder="e.g. Quarter One Math Exam"></div>
+    <div class="field"><label for="subject">Subject *</label><input id="subject" maxlength="100" required placeholder="e.g. Mathematics"></div>
+    <div class="field"><label for="type">Assessment type *</label><select id="type" required><option value="Quarter Exam">Quarter Exam</option><option value="Quiz">Quiz</option><option value="Test">Test</option><option value="Other">Other</option></select></div>
+    <div class="field"><label for="date">Assessment date</label><input id="date" type="date"></div>
+    <div class="field"><label for="time">Assessment time (optional)</label><input id="time" maxlength="60" placeholder="e.g. During Period 2"></div>
+    <div class="field wide"><label for="topics">Covered topics / lessons</label><textarea id="topics" maxlength="12000" placeholder="List the lessons, units, pages, or skills included."></textarea></div>
+    <div class="field wide"><label for="instructions">Instructions / notes</label><textarea id="instructions" maxlength="12000" placeholder="Materials, reminders, or instructions for students."></textarea></div>
+    <div class="field"><label for="published">Publication status</label><select id="published"><option value="false">Draft — hidden from students</option><option value="true">Published — visible to students</option></select></div>
+   </div>
+   <div class="actions"><button class="button primary" id="saveAssessment">Save Assessment</button><button class="button outline" type="button" id="resetForm">Clear Form</button></div>
+   <div class="message" id="formMessage" role="status"></div>
+  </form>
+ </div>
+ <div class="panel">
+  <h2>Attach Revision Resources</h2><p class="muted">Choose an assessment, then upload a PDF/file or add a resource link. Uploaded files are stored in the exam resources bucket.</p>
+  <form id="resourceForm" class="grid" style="margin-top:18px">
+   <div class="field wide"><label for="resourceAssessment">Assessment *</label><select id="resourceAssessment" required><option value="">Load assessments first</option></select></div>
+   <div class="field"><label for="resourceTitle">Resource title *</label><input id="resourceTitle" required maxlength="180" placeholder="e.g. Revision Worksheet"></div>
+   <div class="field"><label for="resourceFile">Upload a file</label><input id="resourceFile" type="file" accept=".pdf,.doc,.docx,.ppt,.pptx,.png,.jpg,.jpeg"></div>
+   <div class="field wide"><label for="resourceUrl">Or paste a resource URL</label><input id="resourceUrl" type="url" placeholder="https://..."></div>
+   <div class="field"><label for="resourcePublished">Resource status</label><select id="resourcePublished"><option value="true">Published</option><option value="false">Draft</option></select></div>
+  </form>
+  <div class="actions"><button class="button primary" id="uploadResource">Attach Resource</button></div>
+  <div class="message" id="resourceMessage" role="status"></div>
+ </div>
+ <div class="panel">
+  <h2>Manage Assessments</h2><p class="muted">Edit details, change publication status, or delete an assessment. Deletion also removes its resource records.</p>
+  <div class="field" style="margin-top:14px"><label for="adminSearch">Search assessments</label><input id="adminSearch" type="search" placeholder="Search by title or subject..."></div>
+  <div id="assessmentList" style="margin-top:14px" aria-live="polite"><p class="muted">Loading assessments...</p></div>
+  <div class="message" id="listMessage" role="status"></div>
+ </div>
+</section>
+</main>
+<footer class="footer"><strong>RISE Exam Navigator</strong><br>Administrator Portal · Grade 7</footer>
+<script type="module">
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+const SUPABASE_URL="https://fawbhtftewddsaysvvjj.supabase.co";
+const SUPABASE_PUBLIC_KEY="sb_publishable_MPQKB4vGtFSjqNaBXQD3ww_RmX-OqBj";
+const supabase=createClient(SUPABASE_URL,SUPABASE_PUBLIC_KEY);
+const $=id=>document.getElementById(id);
+let assessments=[],currentUser=null;
+const BUCKET="rise-exam-resources";
+function esc(v=""){return String(v).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));}
+function msg(id,text,type=""){const el=$(id);el.textContent=text;el.className="message"+(type?" "+type:"");}
+function setBusy(id,busy){$(id).disabled=busy;}
+async function authorizedUser(){const {data:{user},error}=await supabase.auth.getUser();if(error||!user)return null;const {data,error:checkError}=await supabase.from("rise_exam_admins").select("user_id").eq("user_id",user.id).maybeSingle();if(checkError)throw checkError;if(!data)return null;return user;}
+async function showAdmin(user){currentUser=user;$("loginPanel").classList.add("hidden");$("adminPanel").classList.remove("hidden");await loadAssessments();}
+async function login(event){event.preventDefault();setBusy("loginButton",true);msg("loginMessage","Signing in...");try{const {error}=await supabase.auth.signInWithPassword({email:$("email").value.trim(),password:$("password").value});if(error)throw error;const user=await authorizedUser();if(!user){await supabase.auth.signOut();throw new Error("This account is not on the RISE Exam Navigator administrator allowlist. Ask the system owner to authorize your account.");}await showAdmin(user);}catch(e){msg("loginMessage",e.message||"Sign-in failed.","error");}finally{setBusy("loginButton",false);}}
+function resetForm(){ $("assessmentForm").reset();$("recordId").value="";$("published").value="false";$("type").value="Quarter Exam";$("saveAssessment").textContent="Save Assessment";msg("formMessage","");}
+function fillForm(a){$("recordId").value=a.id;$("title").value=a.title||"";$("subject").value=a.subject||"";$("type").value=a.assessment_type||"Other";$("date").value=a.assessment_date||"";$("time").value=a.assessment_time||"";$("topics").value=a.topics||"";$("instructions").value=a.instructions||"";$("published").value=String(!!a.published);$("saveAssessment").textContent="Update Assessment";msg("formMessage","Editing: "+a.title);window.scrollTo({top:0,behavior:"smooth"});}
+async function saveAssessment(event){event.preventDefault();setBusy("saveAssessment",true);msg("formMessage","Saving assessment...");try{const user=await authorizedUser();if(!user)throw new Error("Your admin session is not authorized. Please sign in again.");const record={title:$("title").value.trim(),subject:$("subject").value.trim(),assessment_type:$("type").value,assessment_date:$("date").value||null,assessment_time:$("time").value.trim()||null,topics:$("topics").value.trim()||null,instructions:$("instructions").value.trim()||null,published:$("published").value==="true",updated_at:new Date().toISOString()};if(!record.title||!record.subject)throw new Error("Title and subject are required.");const id=$("recordId").value;const result=id?await supabase.from("rise_exam_assessments").update(record).eq("id",id).select().single():await supabase.from("rise_exam_assessments").insert({...record,created_by:user.id}).select().single();if(result.error)throw result.error;msg("formMessage",record.published?"Assessment saved and published.":"Assessment saved as a draft.","success");resetForm();await loadAssessments();}catch(e){msg("formMessage",e.message||"Could not save assessment.","error");}finally{setBusy("saveAssessment",false);}}
+function renderList(){const q=$("adminSearch").value.trim().toLowerCase();const list=assessments.filter(a=>[a.title,a.subject,a.assessment_type].filter(Boolean).join(" ").toLowerCase().includes(q));$("assessmentList").innerHTML=list.length?list.map(a=>`<article class="assessment"><span class="tag ${a.published?"":"draft"}">${a.published?"PUBLISHED":"DRAFT"}</span><h3>${esc(a.title)}</h3><p>${esc(a.subject)} · ${esc(a.assessment_type)} · ${esc(a.assessment_date||"Date not set")}</p><p>${esc(a.topics||"No topics added.")}</p><div class="actions"><button class="button outline" data-edit="${esc(a.id)}">Edit</button><button class="button outline" data-toggle="${esc(a.id)}">${a.published?"Unpublish":"Publish"}</button><button class="button danger" data-delete="${esc(a.id)}">Delete</button></div></article>`).join(""):'<p class="muted">No assessments found. Create one using the form above.</p>';const current=$("resourceAssessment").value;$("resourceAssessment").innerHTML='<option value="">Choose an assessment</option>'+assessments.map(a=>`<option value="${esc(a.id)}">${esc(a.title)} — ${esc(a.subject)}${a.published?"":" (Draft)"}</option>`).join("");if(assessments.some(a=>a.id===current))$("resourceAssessment").value=current;}
+async function loadAssessments(){ $("assessmentList").innerHTML='<p class="muted">Loading assessments...</p>';const {data,error}=await supabase.from("rise_exam_assessments").select("*").order("assessment_date",{ascending:true,nullsFirst:false});if(error){$("assessmentList").innerHTML="";msg("listMessage",error.message,"error");return;}assessments=data||[];msg("listMessage","");renderList();}
+async function togglePublish(id){const a=assessments.find(x=>x.id===id);if(!a)return;const {error}=await supabase.from("rise_exam_assessments").update({published:!a.published,updated_at:new Date().toISOString()}).eq("id",id);if(error){msg("listMessage",error.message,"error");return;}msg("listMessage",!a.published?"Assessment published.":"Assessment unpublished.","success");await loadAssessments();}
+async function deleteAssessment(id){const a=assessments.find(x=>x.id===id);if(!a||!confirm(`Delete "${a.title}" and its attached resource records? This cannot be undone.`))return;const {data:files,error:readError}=await supabase.from("rise_exam_resources").select("file_path").eq("assessment_id",id);if(readError){msg("listMessage",readError.message,"error");return;}const paths=(files||[]).map(r=>r.file_path).filter(Boolean);if(paths.length){const {error:storageError}=await supabase.storage.from(BUCKET).remove(paths);if(storageError){msg("listMessage","Could not remove stored files: "+storageError.message,"error");return;}}const {error}=await supabase.from("rise_exam_assessments").delete().eq("id",id);if(error){msg("listMessage",error.message,"error");return;}msg("listMessage","Assessment deleted.","success");await loadAssessments();}
+async function attachResource(){setBusy("uploadResource",true);msg("resourceMessage","Attaching resource...");let uploadedPath="";try{const user=await authorizedUser();if(!user)throw new Error("Your admin session is not authorized.");const assessmentId=$("resourceAssessment").value,title=$("resourceTitle").value.trim(),file=$("resourceFile").files[0],externalUrl=$("resourceUrl").value.trim();if(!assessmentId||!title)throw new Error("Choose an assessment and enter a resource title.");if(!file&&!externalUrl)throw new Error("Choose a file or enter a resource URL.");if(file&&externalUrl)throw new Error("Upload a file OR enter a URL, not both.");let filePath=null,fileName=null;if(file){if(file.size>20*1024*1024)throw new Error("Please use a file smaller than 20 MB.");const safeName=file.name.replace(/[^a-zA-Z0-9._-]/g,"_");filePath=`${assessmentId}/${crypto.randomUUID()}-${safeName}`;const {error}=await supabase.storage.from(BUCKET).upload(filePath,file,{upsert:false,contentType:file.type||"application/octet-stream"});if(error)throw error;uploadedPath=filePath;fileName=file.name;}const {error}=await supabase.from("rise_exam_resources").insert({assessment_id:assessmentId,title,file_path:filePath,file_name:fileName,external_url:externalUrl||null,published:$("resourcePublished").value==="true",created_by:user.id});if(error){if(uploadedPath)await supabase.storage.from(BUCKET).remove([uploadedPath]);throw error;}$("resourceForm").reset();msg("resourceMessage","Resource attached successfully.","success");}catch(e){msg("resourceMessage",e.message||"Could not attach resource.","error");}finally{setBusy("uploadResource",false);}}
+$("loginForm").addEventListener("submit",login);$("assessmentForm").addEventListener("submit",saveAssessment);$("resetForm").addEventListener("click",resetForm);$("uploadResource").addEventListener("click",attachResource);$("adminSearch").addEventListener("input",renderList);$("assessmentList").addEventListener("click",async e=>{const edit=e.target.closest("[data-edit]"),toggle=e.target.closest("[data-toggle]"),del=e.target.closest("[data-delete]");if(edit)fillForm(assessments.find(a=>a.id===edit.dataset.edit));if(toggle)await togglePublish(toggle.dataset.toggle);if(del)await deleteAssessment(del.dataset.delete);});$("signOut").addEventListener("click",async()=>{await supabase.auth.signOut();currentUser=null;$("adminPanel").classList.add("hidden");$("loginPanel").classList.remove("hidden");$("loginForm").reset();msg("loginMessage","You have signed out.","success");});
+supabase.auth.onAuthStateChange((event,session)=>{if(event==="SIGNED_OUT"){$("adminPanel").classList.add("hidden");$("loginPanel").classList.remove("hidden");}});
+try{const user=await authorizedUser();if(user)await showAdmin(user);else{await supabase.auth.signOut();}}catch(e){msg("loginMessage","Admin authorization setup issue: "+e.message,"error");}
+</script>
+</body>
+</html>
